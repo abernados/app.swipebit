@@ -27,6 +27,7 @@
         </section>
 
         <form
+        ref="anyName" @submit="submit"
           class="mb-4"
         >
           <div class="o-two-columns">
@@ -57,7 +58,7 @@
             </div>
             <div class="c-field"
               :class="{
-                'text-red-600': $v.name.$error,
+                'text-red-600': $v.username.$error,
               }">
               <label
                 class="c-field__label float-left"
@@ -74,9 +75,15 @@
               <ul v-if="$v.$error" class="flex mt-1">
                   <li
                     class="text-red-600 mb-2 text-xs"
-                    v-if="!$v.name.required"
+                    v-if="!$v.username.required"
                   >
                     <strong>This field is required</strong>
+                  </li>
+                   <li
+                    class="text-red-600 mb-2 text-xs"
+                    v-else-if="!$v.username.minLength"
+                  >
+                    <strong>Username must be atleast 8 characters</strong>
                   </li>
                 </ul>
             </div>
@@ -116,7 +123,8 @@
                 class="c-field__label float-left"
               >Mobile Number</label>
               <vue-phone-number-input v-model="contactNumber" class="w-100" color="#0D1D37" size="lg" clearable
-              @update="results = JSON.stringify($event)"
+              @update="results = $event"
+
                :class="{
                   'border-red-600 border-2': $v.contactNumber.$error,
                 }"/>
@@ -157,7 +165,7 @@
                   </li>
                    <li
                     class="text-red-600 mb-2 text-xs"
-                    v-if="!$v.password.minLength"
+                    v-else-if="!$v.password.minLength"
                   >
                     <strong>Password must be atleast 8 characters</strong>
                   </li>
@@ -252,7 +260,7 @@ export default Vue.extend({
       // if (!this.hasTerms) {
         // return { 
           name: { required },
-          username: { required },
+          username: { required,minLength: minLength(8)},
           contactNumber: { required },
           email: { required,email },
           password: { required, minLength: minLength(8)},
@@ -262,51 +270,72 @@ export default Vue.extend({
   },
   methods: {
     async submit(){
-
       try {
         /* eslint-disable  */
       this.$v.$touch();
-        // axios.defaults.headers.post['Content-Type'] ='text/plain';
-        // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-        console.log(axios.defaults.headers);
-
+        axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         await axios
-          .post(`http://api.swipebitnetwork.com/v1/auth/register/`, {
+          .post(`https://api.swipebitnetwork.com/v1/auth/register/`, {
             name: this.name,
             username: this.username,
-            mobile_number: this.contactNumber,
+            mobile_number: this.results.nationalNumber,
             password: this.password,
             password_confirmation: this.repeatPassword,
             terms: this.hasTerms == true ? 1 : 0,
             email: this.email,
-            country: this.contactNumber,
-          },{
-        headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
-              }
-            })
+            country: this.results != null ? this.results.countryCallingCode : 63,
+          })
           .then((response) => {
-            console.log(response.data);
-            //  this.$toast.open({
-            //   message: response.data.message,
-            //   type: "success",
-            //   duration: 3000,
-            //   dismissible: true,
-            //   position: "top-right",
-            //   pauseOnHover: true,
-            // });
+            console.log(response.data.success);
+             this.$toast.open({
+              message: response.data.message,
+              type: "success",
+              duration: 6000,
+              dismissible: true,
+              position: "top-right",
+              pauseOnHover: true,
+            });
             this.loading = false;
-            window.location.replace("/login");
+            // this.$refs.anyName.reset(); // This will clear that form
+      //     this.name= '';
+      // this.username= '';
+      // this.email= '';
+      // this.contactNumber= '';
+      // this.password= '';
+      // this.repeatPassword= '';
+      // this.hasTerms= '';
+            window.location.replace("/#/login");
           })
           .catch((error) => {
-            console.log("Your error is: " + error.response.data);
-            console.info(error.config);
+            var errorMessage = JSON.parse(JSON.stringify(error.response));
+            // errorMessage.data.forEach(element => {
+              // console.log(element)
+               this.$toast.open({
+                message: errorMessage.data.message,
+                type: "error",
+                duration: 6000,
+                dismissible: true,
+                position: "top-right",
+                pauseOnHover: true,
+              });
+            // });
+            
           });
-      } catch ({ response }) {
+      } catch (error) {
         // this.errors = [response.data.message];
-        console.log("Your error is 2: " + response);
+        console.log("Your error is 2: " + error);
+         var errorMessage = JSON.parse(JSON.stringify(error.response));
+            // errorMessage.data.forEach(element => {
+            //   console.log(element)
+               this.$toast.open({
+                message: errorMessage.data.message,
+                type: "error",
+                duration: 6000,
+                dismissible: true,
+                position: "top-right",
+                pauseOnHover: true,
+              });
+            // });
       }
     }
   }

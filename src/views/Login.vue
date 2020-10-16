@@ -22,8 +22,7 @@
           Welcome Back!
         </h1>
         <p class="mb-0 text-md">
-          To keep connected with us, please login using your email or contact
-          number.
+          To keep connected with us, please login using your username and password. We will send you a One Time Password (OTP) on your phone number.
         </p>
       </header>
 
@@ -130,8 +129,10 @@ export default Vue.extend({
       try {
         /* eslint-disable  */
       this.$v.$touch();
+        axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
         await axios
-          .post(`http://api.swipebitnetwork.com/v1/auth/login`, {
+          .post(`https://api.swipebitnetwork.com/v1/auth/login`, {
             username: this.username,
             password: this.password,
           })
@@ -140,19 +141,41 @@ export default Vue.extend({
              this.$toast.open({
               message: response.data.message,
               type: "success",
-              duration: 3000,
+              duration: 6000,
               dismissible: true,
               position: "top-right",
               pauseOnHover: true,
             });
-            window.location.replace("/otp");
+            window.location.replace("/#/otp");
           })
           .catch((error) => {
-            console.log("Your error is: " + error.response.data);
-            console.info(error.config);
+             var errorMessage = JSON.parse(JSON.stringify(error.response));
+            // errorMessage.data.forEach(element => {
+              // console.log(element)
+               this.$toast.open({
+                message: errorMessage.data.message,
+                type: "error",
+                duration: 6000,
+                dismissible: true,
+                position: "top-right",
+                pauseOnHover: true,
+              });
+            // });
           });
-      } catch ({ response }) {
-        console.log("Your error is 2: " + response);
+      } catch ( error ) {
+        console.log("Your error is 2: " + error);
+         var errorMessage = JSON.parse(JSON.stringify(error.response));
+            // errorMessage.data.forEach(element => {
+              console.log(element)
+               this.$toast.open({
+                message: errorMessage.data.message,
+                type: "error",
+                duration: 6000,
+                dismissible: true,
+                position: "top-right",
+                pauseOnHover: true,
+              });
+            // });
       }
     }
   }
