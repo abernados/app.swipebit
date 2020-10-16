@@ -1,6 +1,9 @@
 @tailwind base;
 @tailwind components;
 
+
+@import "./base/boilerplate.css";
+
 /** Objects. **/
 
 @import "./objects/o-box.css";

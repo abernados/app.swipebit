@@ -19,7 +19,7 @@
 }
 
 .o-box__body {
-    @apply rounded-lg rounded-b-none;
+    @apply rounded-lg ;
 }
 
 .o-box__footer {
@@ -31,9 +31,11 @@
     @apply border-t-0 rounded-t-none;
 }
 
-.o-box__body:last-child {
-    @apply rounded-b-lg;
+.o-box__footer+.o-box__body,
+.o-box__body+.o-box__body {
+    @apply border-t-0 rounded-b-none;
 }
+
 
 .o-box.v--inverse {
     .o-box__header,

@@ -7,9 +7,23 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
     </div> -->
-    <router-view />
+    <component :is="layout">
+      <router-view />
+    </component>
   </div>
 </template>
+<script>
+const DefaultLayout = "default"
+
+export default {
+  computed: {
+    layout() {
+      return (this.$route.meta.layout || DefaultLayout) + '-layout'; 
+    }
+  },
+};
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
