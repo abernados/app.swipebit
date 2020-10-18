@@ -6,6 +6,9 @@
                 <span></span>
             </li>
             <li class="mr-6">
+                <a class="text-gray-500 hover:text-blue-800" href="#">Cash In</a>
+            </li>
+            <li class="mr-6">
                 <a class="text-gray-500 hover:text-blue-800" href="#">Send Money</a>
             </li>
             <li class="mr-6">
@@ -14,12 +17,6 @@
             </li>
             <li class="mr-6"> 
                 <a class="text-gray-500 hover:text-blue-800" href="#">Cards</a>
-            </li>
-            <li class="mr-6"> 
-                <a class="text-gray-500 hover:text-blue-800" href="#">Exchange</a>
-            </li>
-            <li class="mr-6"> 
-                <a class="text-gray-500 hover:text-blue-800" href="#">Promotions</a>
             </li>
         </ul>
     </div>

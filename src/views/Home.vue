@@ -16,18 +16,18 @@
           Withdraw</button>
       </div>
       <div class="row-span-3 col-span-4">
-        <div class="o-box">
-          <div class="o-box__body rounded-sm bg-white">
+        <div class="o-box bg-center bg-no-repeat bg-cover" :style="{'background-image': 'url(' + require('@/assets/images/banner_with_2_cards.png') + ')'}">
+          <div class="o-box__body rounded-sm " >
             <div class="w-1/3 text-left">
               <p class="font-bold pb-4">Mastercard</p>
               <p class="pb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur, odio commodo porttitor facilisis, enim eros hendrerit dui, et ornare augue arcu auctor erat.</p>
               <a href="#" class="text-sm uppercase font-bold text-blue-500">get now 
               </a>
             </div>
-            <div class="w-2/3">
+            <!-- <div class="w-2/3">
               <img src="@/assets/images/white_mastercard.png" alt="">
               <img src="@/assets/images/red_mastercard.png" alt="">
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
