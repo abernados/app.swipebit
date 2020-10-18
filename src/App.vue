@@ -8,7 +8,6 @@
       <router-link to="/">Home</router-link> |
     </div> -->
     <router-view v-show="!isLoggedIn"/>
-
     <component :is="layout" v-show="isLoggedIn">
       <router-view />
     </component>
@@ -20,18 +19,25 @@ const DefaultLayout = "default"
 export default {
   data(){
     return {
-      isLoggedIn: false
+      isLoggedIn: false,
+      user: null
     }
   },
   created(){
-    console.log(localStorage.getItem('token'));
-      this.isLoggedIn =  localStorage.getItem('token') !== null ? true : false;
+    console.log(localStorage.getItem('access_token'));
+    this.user=localStorage.getItem('user');
+    this.isLoggedIn =  localStorage.getItem('user') !== null ? true : false;
   },
   computed: {
     layout() {
       return (this.$route.meta.layout || DefaultLayout) + '-layout'; 
     }
   },
+  watch: {
+    user(){
+      this.isLoggedIn =  localStorage.getItem('user') !== null ? true : false;
+    }
+  }
 };
 </script>
 

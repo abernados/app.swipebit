@@ -24,10 +24,6 @@
               <a href="#" class="text-sm uppercase font-bold text-blue-500">get now 
               </a>
             </div>
-            <!-- <div class="w-2/3">
-              <img src="@/assets/images/white_mastercard.png" alt="">
-              <img src="@/assets/images/red_mastercard.png" alt="">
-            </div> -->
           </div>
         </div>
       </div>
@@ -72,37 +68,8 @@
           </div>
         </div>
       </div>
-      
     </div>
-    <!-- <header class="grid grid-cols-4 gap-8">
-      <widget-tile
-        title="Users"
-        value="20"
-        icon="users"
-        url="/home"
-        class="bg-blue"
-      />
-      <widget-tile
-        title="Total Sales"
-        value="27,244"
-        icon="money-bill"
-        url="/home"
-      />
-      <widget-tile
-        title="Transactions"
-        value="483"
-        icon="table"
-        url="/home"
-      />
-      <widget-tile
-        title="Balance"
-        value="20,432"
-        icon="coins"
-        url="/home"
-      />
-    </header> -->
     <div>
-      <!-- <chart></chart> -->
     </div>
   </section>
 </template>

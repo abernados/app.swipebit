@@ -21,8 +21,11 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
-    meta: { layout: "default" },
-    component: Home
+    meta: {
+      layout: "default",
+      middleware: [auth]
+    },
+    component: Home,
   },
   {
     path: '/login',
@@ -73,14 +76,14 @@ const routes: Array<RouteConfig> = [
     name: 'ResetPassword',
     component: ResetPassword
   },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: Dashboard,
-    meta: {
-      middleware: [auth]
-    },
-  },
+  // {
+  //   path: '/dashboard',
+  //   name: 'Dashboard',
+  //   component: Dashboard,
+  //   meta: {
+  //     middleware: [auth]
+  //   },
+  // },
   
   // {
   //   path: '/about',

@@ -1,7 +1,7 @@
 export default function guest ({ next, store }){
-    if(localStorage.getItem('access_token')){
+    if(localStorage.getItem('user')){
         return next({
-           name: 'Dashboard'
+           name: 'Home'
         })
     }
    

@@ -141,7 +141,7 @@ export default Vue.extend({
               position: "top-right",
               pauseOnHover: true,
             });
-                window.location.replace('/#/dashboard')
+                window.location.replace('/#/')
 
           })
           .catch((error) => {
