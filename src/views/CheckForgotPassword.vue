@@ -85,7 +85,7 @@ import { required } from "vuelidate/lib/validators";
 import axios from "axios";
 
 export default Vue.extend({
-  name: "ForgotPassword",
+  name: "CheckForgotPassword",
    data(){
     return{
       code: null,
@@ -95,19 +95,53 @@ export default Vue.extend({
   validations: {
     code: { required },
   },
+  created(){
+    console.log('TOKEN: '+this.$route.query.token);
+      try {
+        /* eslint-disable  */
+        axios
+          .post(`https://api.swipebitnetwork.com/v1/auth/forgot_password`, {
+            token: this.$route.query.token,
+          })
+          .then((response) => {
+            console.log(response.data);
+            this.token = response.data.data.token;
+          })
+          .catch((error) => {
+            console.log("Your error is: " + error.response.data);
+            console.info(error.config);
+          });
+      } catch ({ response }) {
+        console.log("Your error is 2: " + response);
+      }
+  
+  },
    methods: {
     async submit(){
+    console.log('OLD TOKEN: '+this.$route.query.token);
+    console.log('NEW TOKEN: '+this.token);
+
       try {
         /* eslint-disable  */
       this.$v.$touch();
         await axios
           .post(`https://api.swipebitnetwork.com/v1/otp/verify`, {
             code: this.code,
-            token: localStorage.getItem('access_token'),
+            token: this.token,
           })
           .then((response) => {
             console.log(response.data);
-            this.validateLoginAgain();
+             this.$toast.open({
+              message: response.data.message,
+              type: "success",
+              duration: 6000,
+              dismissible: true,
+              position: "top-right",
+              pauseOnHover: true,
+            });
+            localStorage.setItem('forgotpass_token', response.data.data.token);
+            localStorage.setItem('forgotpass_code', response.data.data.code);
+            window.location.replace("/#/reset-password");
           })
           .catch((error) => {
             console.log("Your error is: " + error.response.data);
@@ -117,65 +151,14 @@ export default Vue.extend({
         console.log("Your error is 2: " + response);
       }
     },
-    async validateLoginAgain(){
-      try {
-        /* eslint-disable  */
-        await axios
-          .post(`https://api.swipebitnetwork.com/v1/auth/login`, {
-            code: this.code,
-            token: localStorage.getItem('access_token'),
-          })
-          .then((response) => {
-            console.log(response.data);
-            localStorage.removeItem('access_token');
-            localStorage.setItem('access_token', response.data.data.token);
-            localStorage.setItem('user', response.data.data.user);
-            axios.defaults.headers.common['Authorization'] = response.data.data.token
-
-
-             this.$toast.open({
-              message: response.data.message,
-              type: "success",
-              duration: 3000,
-              dismissible: true,
-              position: "top-right",
-              pauseOnHover: true,
-            });
-                window.location.replace('/#/dashboard')
-
-          })
-          .catch((error) => {
-            console.log("Your error is: " + error.response.data);
-            console.info(error.config);
-            var errorMessage = JSON.parse(JSON.stringify(error.response));
-              this.$toast.open({
-                message: errorMessage.data.message,
-                type: "error",
-                duration: 6000,
-                dismissible: true,
-                position: "top-right",
-                pauseOnHover: true,
-              });
-          });
-      } catch ({ error }) {
-        console.log("Your error is 2: " + error);
-          var errorMessage = JSON.parse(JSON.stringify(error.response));
-              this.$toast.open({
-                message: errorMessage.data.message,
-                type: "error",
-                duration: 6000,
-                dismissible: true,
-                position: "top-right",
-                pauseOnHover: true,
-              });
-      }
-    },
     resendOtp(){
+    console.log('TOKEN: '+this.$route.query.token);
+
         try {
         /* eslint-disable  */
         axios
           .post(`https://api.swipebitnetwork.com/v1/otp/resend`, {
-            token: localStorage.getItem('access_token'),
+            token: this.token,
           })
           .then((response) => {
             console.log(response.data);

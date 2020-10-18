@@ -101,6 +101,7 @@ export default Vue.extend({
         await axios
           .post(`https://api.swipebitnetwork.com/v1/auth/forgot_password`, {
             username: this.username,
+            // token: localStorage.getItem('access_token'),
           })
           .then((response) => {
             console.log(response.data);

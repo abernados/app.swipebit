@@ -167,17 +167,14 @@ export default Vue.extend({
       } catch ( error ) {
         console.log("Your error is 2: " + error);
          var errorMessage = JSON.parse(JSON.stringify(error.response));
-            // errorMessage.data.forEach(element => {
-              console.log(element)
-               this.$toast.open({
-                message: errorMessage.data.message,
-                type: "error",
-                duration: 6000,
-                dismissible: true,
-                position: "top-right",
-                pauseOnHover: true,
-              });
-            // });
+          this.$toast.open({
+            message: errorMessage.data.message,
+            type: "error",
+            duration: 6000,
+            dismissible: true,
+            position: "top-right",
+            pauseOnHover: true,
+          });
       }
     }
   }
