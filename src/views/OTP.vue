@@ -89,6 +89,7 @@ export default Vue.extend({
    data(){
     return{
       code: null,
+      token: null,
     }
   },
   validations: {
@@ -100,20 +101,13 @@ export default Vue.extend({
         /* eslint-disable  */
       this.$v.$touch();
         await axios
-          .post(`http://api.swipebitnetwork.com/v1/otp/verify`, {
+          .post(`https://api.swipebitnetwork.com/v1/otp/verify`, {
             code: this.code,
+            token: localStorage.getItem('access_token'),
           })
           .then((response) => {
             console.log(response.data);
-             this.$toast.open({
-              message: response.data.message,
-              type: "success",
-              duration: 3000,
-              dismissible: true,
-              position: "top-right",
-              pauseOnHover: true,
-            });
-            window.location.replace('/dashboard')
+            this.validateLoginAgain();
           })
           .catch((error) => {
             console.log("Your error is: " + error.response.data);
@@ -123,12 +117,63 @@ export default Vue.extend({
         console.log("Your error is 2: " + response);
       }
     },
+    async validateLoginAgain(){
+      try {
+        /* eslint-disable  */
+        await axios
+          .post(`https://api.swipebitnetwork.com/v1/auth/login`, {
+            code: this.code,
+            token: localStorage.getItem('access_token'),
+          })
+          .then((response) => {
+            console.log(response.data);
+            localStorage.removeItem('access_token');
+            localStorage.setItem('access_token', response.data.data.token);
+            localStorage.setItem('user', response.data.data.user);
+
+             this.$toast.open({
+              message: response.data.message,
+              type: "success",
+              duration: 3000,
+              dismissible: true,
+              position: "top-right",
+              pauseOnHover: true,
+            });
+                window.location.replace('/#/dashboard')
+
+          })
+          .catch((error) => {
+            console.log("Your error is: " + error.response.data);
+            console.info(error.config);
+            var errorMessage = JSON.parse(JSON.stringify(error.response));
+              this.$toast.open({
+                message: errorMessage.data.message,
+                type: "error",
+                duration: 6000,
+                dismissible: true,
+                position: "top-right",
+                pauseOnHover: true,
+              });
+          });
+      } catch ({ error }) {
+        console.log("Your error is 2: " + error);
+          var errorMessage = JSON.parse(JSON.stringify(error.response));
+              this.$toast.open({
+                message: errorMessage.data.message,
+                type: "error",
+                duration: 6000,
+                dismissible: true,
+                position: "top-right",
+                pauseOnHover: true,
+              });
+      }
+    },
     resendOtp(){
         try {
         /* eslint-disable  */
         axios
-          .post(`http://api.swipebitnetwork.com/v1/otp/resend`, {
-            // token: this.token,
+          .post(`https://api.swipebitnetwork.com/v1/otp/resend`, {
+            token: localStorage.getItem('access_token'),
           })
           .then((response) => {
             console.log(response.data);
@@ -149,6 +194,7 @@ export default Vue.extend({
         console.log("Your error is 2: " + response);
       }
     }
+
   }
 });
 </script>

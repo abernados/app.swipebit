@@ -99,7 +99,7 @@ export default Vue.extend({
         /* eslint-disable  */
       this.$v.$touch();
         await axios
-          .post(`http://api.swipebitnetwork.com/v1/auth/forgot_password`, {
+          .post(`https://api.swipebitnetwork.com/v1/auth/forgot_password`, {
             username: this.username,
           })
           .then((response) => {

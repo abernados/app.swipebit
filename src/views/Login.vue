@@ -138,7 +138,9 @@ export default Vue.extend({
           })
           .then((response) => {
             console.log(response.data);
-             this.$toast.open({
+            console.log('Token: ' + response.data.data.token);
+            localStorage.setItem('access_token', response.data.data.token);
+            this.$toast.open({
               message: response.data.message,
               type: "success",
               duration: 6000,
