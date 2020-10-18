@@ -7,7 +7,9 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
     </div> -->
-    <component :is="layout">
+    <router-view v-show="!isLoggedIn"/>
+
+    <component :is="layout" v-show="isLoggedIn">
       <router-view />
     </component>
   </div>
@@ -16,6 +18,15 @@
 const DefaultLayout = "default"
 
 export default {
+  data(){
+    return {
+      isLoggedIn: false
+    }
+  },
+  created(){
+    console.log(localStorage.getItem('token'));
+      this.isLoggedIn =  localStorage.getItem('token') !== null ? true : false;
+  },
   computed: {
     layout() {
       return (this.$route.meta.layout || DefaultLayout) + '-layout'; 
