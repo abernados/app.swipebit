@@ -7,9 +7,34 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
     </div> -->
-    <router-view />
+    <router-view v-show="!isLoggedIn"/>
+
+    <component :is="layout" v-show="isLoggedIn">
+      <router-view />
+    </component>
   </div>
 </template>
+<script>
+const DefaultLayout = "default"
+
+export default {
+  data(){
+    return {
+      isLoggedIn: false
+    }
+  },
+  created(){
+    console.log(localStorage.getItem('token'));
+      this.isLoggedIn =  localStorage.getItem('token') !== null ? true : false;
+  },
+  computed: {
+    layout() {
+      return (this.$route.meta.layout || DefaultLayout) + '-layout'; 
+    }
+  },
+};
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

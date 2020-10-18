@@ -21,6 +21,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
+    meta: { layout: "default" },
     component: Home
   },
   {
