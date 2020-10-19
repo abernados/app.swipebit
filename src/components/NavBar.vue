@@ -61,7 +61,7 @@ import axios from "axios";
                         });
                         localStorage.removeItem('access_token');
                         localStorage.removeItem('user');
-                        window.location.replace('/#/login');
+                        window.location.replace('/login');
                     })
                     .catch((error) => {
                         console.log("Your error is: " + error.response.data);

@@ -141,7 +141,7 @@ export default Vue.extend({
             });
             localStorage.setItem('forgotpass_token', response.data.data.token);
             localStorage.setItem('forgotpass_code', response.data.data.code);
-            window.location.replace("/#/reset-password");
+            window.location.replace("/reset-password");
           })
           .catch((error) => {
             console.log("Your error is: " + error.response.data);

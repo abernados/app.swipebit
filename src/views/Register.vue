@@ -296,20 +296,10 @@ export default Vue.extend({
               pauseOnHover: true,
             });
             this.loading = false;
-            // this.$refs.anyName.reset(); // This will clear that form
-      //     this.name= '';
-      // this.username= '';
-      // this.email= '';
-      // this.contactNumber= '';
-      // this.password= '';
-      // this.repeatPassword= '';
-      // this.hasTerms= '';
-            window.location.replace("/#/login");
+            window.location.replace("/login");
           })
           .catch((error) => {
             var errorMessage = JSON.parse(JSON.stringify(error.response));
-            // errorMessage.data.forEach(element => {
-              // console.log(element)
                this.$toast.open({
                 message: errorMessage.data.message,
                 type: "error",
@@ -318,15 +308,11 @@ export default Vue.extend({
                 position: "top-right",
                 pauseOnHover: true,
               });
-            // });
             
           });
       } catch (error) {
-        // this.errors = [response.data.message];
         console.log("Your error is 2: " + error);
          var errorMessage = JSON.parse(JSON.stringify(error.response));
-            // errorMessage.data.forEach(element => {
-            //   console.log(element)
                this.$toast.open({
                 message: errorMessage.data.message,
                 type: "error",
@@ -335,7 +321,6 @@ export default Vue.extend({
                 position: "top-right",
                 pauseOnHover: true,
               });
-            // });
       }
     }
   }

@@ -148,7 +148,7 @@ export default Vue.extend({
               position: "top-right",
               pauseOnHover: true,
             });
-            window.location.replace("/#/otp");
+            window.location.replace("/otp");
           })
           .catch((error) => {
              var errorMessage = JSON.parse(JSON.stringify(error.response));

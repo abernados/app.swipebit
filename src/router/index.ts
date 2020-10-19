@@ -96,6 +96,7 @@ const routes: Array<RouteConfig> = [
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes,
   base: BASE_ROUTE
 

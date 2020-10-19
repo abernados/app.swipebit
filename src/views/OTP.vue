@@ -139,7 +139,7 @@ export default Vue.extend({
               position: "top-right",
               pauseOnHover: true,
             });
-                window.location.replace('/#/')
+                window.location.replace('/')
 
           })
           .catch((error) => {

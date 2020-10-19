@@ -162,7 +162,7 @@ export default Vue.extend({
             });
             localStorage.removeItem('forgotpass_token')
             localStorage.removeItem('forgotpass_code')
-            window.location.replace("/#/login");
+            window.location.replace("/login");
 
           })
           .catch((error) => {

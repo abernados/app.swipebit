@@ -66,6 +66,134 @@
                 </a>
             </div>
           </div>
+          <div class="o-box__body rounded-sm bg-white px-4 py-4 my-4">
+            <div class="flex items-center justify-between">
+            <font-awesome-icon :icon="['fas', 'shield-alt']" class="c-avatar v--small object-cover self-start ml-4 mt-10" />
+                <div>
+                  <p class="font-bold ml-6 text-left text-sm uppercase">Verify Your Account</p>
+                  <p class="pb-4 text-left mx-6 mt-4">Click <button @click="verifyAccount"> here </button> to unlock Premium Features and to have multiple cards on your account.</p>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-span-4">
+        <div class="o-box">
+          <div class="o-box__body rounded-sm bg-white px-4 py-4">
+            <div class="flex items-center justify-between">
+                <p class=" text-sm ml-2 font-bold">Recent Activity</p>
+                <p class="ml-auto text-sm font-bold">View All</p>
+            </div>
+            <div class="flex flex-col mt-6 mb-2">
+              <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                  <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200">
+                      <thead>
+                        <tr>
+                          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Date
+                          </th>
+                          <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Description
+                          </th>
+                          <th class="px-6 py-3 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Amount
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                          <td class="px-6 text-left py-4 whitespace-no-wrap text-sm leading-5">
+                            18 Oct 2020
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap text-left">
+                            <div class="text-sm font-bold text-blue-light">Payment from Swipebit Network </div>
+                            <div class="text-xs leading-5 text-gray-500">Completed</div>
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap text-right">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                               65,123.43 PHP
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="px-6 text-left py-4 whitespace-no-wrap text-sm leading-5">
+                            18 Oct 2020
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap text-left">
+                            <div class="text-sm font-bold text-blue-light">Payment to SM Department Store </div>
+                            <div class="text-xs leading-5 text-gray-500">Completed</div>
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap text-right">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                              - 265,776.43 PHP
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="px-6 text-left py-4 whitespace-no-wrap text-sm leading-5">
+                            18 Oct 2020
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap text-left">
+                            <div class="text-sm font-bold text-blue-light">Payment from Company ABC </div>
+                            <div class="text-xs leading-5 text-gray-500">Pending</div>
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap text-right">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                               43,245.43 USD
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="px-6 text-left py-4 whitespace-no-wrap text-sm leading-5">
+                            18 Oct 2020
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap text-left">
+                            <div class="text-sm font-bold text-blue-light">Payment to Swipebit Network </div>
+                            <div class="text-xs leading-5 text-gray-500">Completed</div>
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap text-right">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                              - 123.43 PHP
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="px-6 text-left py-4 whitespace-no-wrap text-sm leading-5">
+                            18 Oct 2020
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap text-left">
+                            <div class="text-sm font-bold text-blue-light">Payment from Swipebit Network </div>
+                            <div class="text-xs leading-5 text-gray-500">Completed</div>
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap text-right">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                               4,323.43 USD
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="px-6 text-left py-4 whitespace-no-wrap text-sm leading-5">
+                            18 Oct 2020
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap text-left">
+                            <div class="text-sm font-bold text-blue-light">Payment to Swipebit Network </div>
+                            <div class="text-xs leading-5 text-gray-500">Pending</div>
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap text-right">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                              - 123.43 PHP
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
