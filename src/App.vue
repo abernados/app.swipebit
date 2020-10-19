@@ -1,14 +1,8 @@
 <template>
   <div id="app">
-    <!-- <div class="home mx-auto bg-black text-white py-8">
-      <h1 class="text-5xl">Welcome to</h1>
-      <logo size="300px" class="mx-auto object-right"></logo>
-    </div>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-    </div> -->
-    <router-view v-show="!isLoggedIn"/>
-    <component :is="layout" v-show="isLoggedIn">
+      <router-view v-show="!user"/>
+      <span></span>    
+      <component :is="layout" v-show="user">
       <router-view />
     </component>
   </div>
@@ -20,13 +14,13 @@ export default {
   data(){
     return {
       isLoggedIn: false,
-      user: null
+      user: localStorage.getItem('user')
     }
   },
   created(){
-    console.log(localStorage.getItem('access_token'));
-    this.user=localStorage.getItem('user');
-    this.isLoggedIn =  localStorage.getItem('user') !== null ? true : false;
+    console.log('Token:' + localStorage.access_token);
+    console.log('User:' + localStorage.user);
+    this.isLoggedIn =  this.user !== null ? true : false;
   },
   computed: {
     layout() {

@@ -7,16 +7,16 @@
             </div>
             <div class="block ml-auto relative">
                 <div class="block">
-                    <img src="@/assets/images/person.jpg" alt="Avatar" class="c-avatar v--small v--circle object-cover inline-block">
+                    <img src="@/assets/images/avatar.svg" alt="Avatar" class="c-avatar v--small v--circle object-cover inline-block">
                     <button type="button" class="inline-block text-sm px-4 py-2 leading-none mt-4 lg:mt-0 outline-none focus:outline-none" @click="isOpen = !isOpen">Janella
                         <font-awesome-icon :icon="['fas', icon]" class="ml-2"/>
                     </button>
                 </div>
                 <button v-if="isOpen" @click="isOpen = false" type="button" tabindex="-1" class="fixed inset-0 h-full w-full cursor-default"></button>
-                <div v-if="isOpen" class="absolute right-0 border text-sm mt-2 py-2 w-48 bg-white rounded-lg shadow-xl text-left">
-                    <a class="block px-4 py-2 text-gray-800 hover:bg-blue-medium hover:text-white" href="#">Account</a>
+                <div v-if="isOpen" class="absolute right-0 border text-sm mt-2 py-2 w-auto bg-white rounded-lg shadow-xl text-left w-full">
+                    <button class="block px-4 py-2 text-gray-800 hover:bg-blue-medium hover:text-white w-full text-left" href="#">Account</button>
                     <!-- <a class="block px-4 py-2 text-gray-800 hover:bg-blue-medium hover:text-white" href="#">Settings</a> -->
-                    <a class="block px-4 py-2 text-gray-800 hover:bg-blue-medium hover:text-white" href="#">Sign out</a>
+                    <button class="block px-4 py-2 text-gray-800 hover:bg-blue-medium hover:text-white w-full text-left" @click="logout">Sign out</button>
                 </div>
 
             </div>
@@ -25,10 +25,14 @@
 </template>
 
 <script>
+import Vue from "vue";
+import axios from "axios";
+
     export default {
         data() {
             return {
                 isOpen: false,
+                userAccount: localStorage.getItem('userDetails')
             }
         },
         computed: {
@@ -36,7 +40,38 @@
                 return (this.isOpen ? 'angle-up' : 'angle-down');
             }
         },
-        
+        methods: {
+            logout(){
+                console.log(localStorage.getItem('access_token'));
+                try {
+                    /* eslint-disable  */
+                    axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+                    axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('access_token');
+                    axios
+                    .post(`https://api.swipebitnetwork.com/v1/auth/logout`)
+                    .then((response) => {
+                        console.log(response.data);
+                          this.$toast.open({
+                            message: response.data.message,
+                            type: "success",
+                            duration: 3000,
+                            dismissible: true,
+                            position: "top-right",
+                            pauseOnHover: true,
+                        });
+                        localStorage.removeItem('access_token');
+                        localStorage.removeItem('user');
+                        window.location.replace('/#/login');
+                    })
+                    .catch((error) => {
+                        console.log("Your error is: " + error.response.data);
+                        console.info(error.config);
+                    });
+                } catch ( response ) {
+                    console.log("Your error is 2: " + response);
+                }
+            },
+        }
     }
 </script>
 

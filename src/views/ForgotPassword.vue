@@ -113,6 +113,8 @@ export default Vue.extend({
               position: "top-right",
               pauseOnHover: true,
             });
+            this.validateForgotpasswordAgain();
+
           })
           .catch((error) => {
             console.log("Your error is: " + error.response.data);
@@ -121,7 +123,59 @@ export default Vue.extend({
       } catch ({ response }) {
         console.log("Your error is 2: " + response);
       }
-    }
+    },
+    async validateForgotpasswordAgain(){
+      try {
+        /* eslint-disable  */
+        await axios
+          .post(`https://api.swipebitnetwork.com/v1/auth/forgot_password`, {
+            token: localStorage.getItem('access_token'),
+          })
+          .then((response) => {
+            console.log(response.data);
+            localStorage.removeItem('access_token');
+            localStorage.setItem('access_token', response.data.data.token);
+            axios.defaults.headers.common['Authorization'] = response.data.data.token
+
+
+             this.$toast.open({
+              message: response.data.message,
+              type: "success",
+              duration: 3000,
+              dismissible: true,
+              position: "top-right",
+              pauseOnHover: true,
+            });
+                window.location.replace('/#/dashboard')
+
+          })
+          .catch((error) => {
+            console.log("Your error is: " + error.response.data);
+            console.info(error.config);
+            var errorMessage = JSON.parse(JSON.stringify(error.response));
+              this.$toast.open({
+                message: errorMessage.data.message,
+                type: "error",
+                duration: 6000,
+                dismissible: true,
+                position: "top-right",
+                pauseOnHover: true,
+              });
+          });
+      } catch ({ error }) {
+        console.log("Your error is 2: " + error);
+          var errorMessage = JSON.parse(JSON.stringify(error.response));
+              this.$toast.open({
+                message: errorMessage.data.message,
+                type: "error",
+                duration: 6000,
+                dismissible: true,
+                position: "top-right",
+                pauseOnHover: true,
+              });
+      }
+    },
+   
   }
   
 });

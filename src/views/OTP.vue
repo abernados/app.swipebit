@@ -127,11 +127,9 @@ export default Vue.extend({
           })
           .then((response) => {
             console.log(response.data);
-            localStorage.removeItem('access_token');
-            localStorage.setItem('access_token', response.data.data.token);
-            localStorage.setItem('user', response.data.data.user);
-            axios.defaults.headers.common['Authorization'] = response.data.data.token
-
+            localStorage.setItem('access_token', response.data.data.access_token);
+            localStorage.setItem('user', JSON.stringify(response.data.data.user));
+            axios.defaults.headers.common['Authorization'] = response.data.data.access_token
 
              this.$toast.open({
               message: response.data.message,
