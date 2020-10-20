@@ -7,7 +7,7 @@ import ForgotPassword from '../views/ForgotPassword.vue'
 import OTP from '../views/OTP.vue'
 import ResetPassword from '../views/ResetPassword.vue'
 import CheckForgotPassword from '../views/CheckForgotPassword.vue'
-import Dashboard from '../views/Dashboard.vue'
+import MyProfile from '../views/MyProfile.vue'
 
 import guest from './middleware/guest'
 import auth from './middleware/auth'
@@ -76,14 +76,14 @@ const routes: Array<RouteConfig> = [
     name: 'ResetPassword',
     component: ResetPassword
   },
-  // {
-  //   path: '/dashboard',
-  //   name: 'Dashboard',
-  //   component: Dashboard,
-  //   meta: {
-  //     middleware: [auth]
-  //   },
-  // },
+  {
+    path: '/my-profile',
+    name: 'MyProfile',
+    component: MyProfile,
+    meta: {
+      middleware: [auth]
+    },
+  },
   
   // {
   //   path: '/about',
