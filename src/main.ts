@@ -12,8 +12,10 @@ import Default from "./layouts/Default.vue"
 
 import Vuelidate from 'vuelidate';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
-import VueToast from 'vue-toast-notification';
+// Import one of available themes
 import 'vue-toast-notification/dist/theme-default.css';
+//import 'vue-toast-notification/dist/theme-sugar.css';
+import VueToast from 'vue-toast-notification';
 Vue.use(VueToast);
 
 
