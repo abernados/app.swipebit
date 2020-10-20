@@ -284,6 +284,7 @@ export default Vue.extend({
           })
           .then((response) => {
             console.log(response.data.success);
+            localStorage.setItem('access_token', response.data.data.token);
              this.$toast.open({
               message: response.data.message,
               type: "success",
@@ -293,7 +294,7 @@ export default Vue.extend({
               pauseOnHover: true,
             });
             this.loading = false;
-            window.location.replace("/login");
+            window.location.replace("/otp");
           })
           .catch((error) => {
             var errorMessage = JSON.parse(JSON.stringify(error.response));
