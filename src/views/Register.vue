@@ -240,7 +240,6 @@ import {
   sameAs
 } from "vuelidate/lib/validators";
 import axios from "axios";
-// axios.defaults.baseURL = 'http://api.swipebitnetwork.com';
 export default Vue.extend({
   name: "Register",
   data(){
@@ -249,24 +248,22 @@ export default Vue.extend({
       username: null,
       email: null,
       contactNumber: null,
+      newContactNumber: null,
       password: null,
       repeatPassword: null,
+      country: null,
       hasTerms: false,
       loading: false,
       results: null
     }
   },
    validations: {
-      // if (!this.hasTerms) {
-        // return { 
           name: { required },
           username: { required,minLength: minLength(8)},
           contactNumber: { required },
           email: { required,email },
           password: { required, minLength: minLength(8)},
           repeatPassword: { sameAsPassword: sameAs('password') }
-        // }
-      // }
   },
   methods: {
     async submit(){
@@ -278,12 +275,12 @@ export default Vue.extend({
           .post(`https://api.swipebitnetwork.com/v1/auth/register/`, {
             name: this.name,
             username: this.username,
-            mobile_number: this.results.nationalNumber,
+            mobile_number: this.newContactNumber,
             password: this.password,
             password_confirmation: this.repeatPassword,
             terms: this.hasTerms == true ? 1 : 0,
             email: this.email,
-            country: this.results != null ? this.results.countryCallingCode : 63,
+            country: this.country,
           })
           .then((response) => {
             console.log(response.data.success);
@@ -321,6 +318,17 @@ export default Vue.extend({
                 position: "top-right",
                 pauseOnHover: true,
               });
+      }
+    }
+  },
+  watch: {
+     results(x) {
+      if (x) {
+        this.newContactNumber = x.nationalNumber;  
+        this.country = x.countryCallingCode;  
+      } else {
+        this.newContactNumber = null;  
+        this.country = null;  
       }
     }
   }

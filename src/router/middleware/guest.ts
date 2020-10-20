@@ -1,4 +1,4 @@
-export default function guest ({ next, store }){
+export default function guest ({ next, store }  : { next: any, store: any} ){
     if(localStorage.getItem('user')){
         return next({
            name: 'Home'
@@ -6,4 +6,4 @@ export default function guest ({ next, store }){
     }
    
     return next()
-   }
+}

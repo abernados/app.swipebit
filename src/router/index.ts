@@ -11,8 +11,6 @@ import MyProfile from '../views/MyProfile.vue'
 
 import guest from './middleware/guest'
 import auth from './middleware/auth'
-import isRegistered from './middleware/isRegistered'
-import isSameEmail from './middleware/isSameEmail'
 
 Vue.use(VueRouter)
 export const BASE_ROUTE = process.env.SWIPEBIT_API_HOSTNAME || '/'
