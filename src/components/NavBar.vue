@@ -7,8 +7,9 @@
             </div>
             <div class="block ml-auto relative">
                 <div class="block">
-                    <img src="@/assets/images/avatar.svg" alt="Avatar" class="c-avatar v--small v--circle object-cover inline-block">
-                    <button type="button" class="inline-block text-sm px-4 py-2 leading-none mt-4 lg:mt-0 outline-none focus:outline-none" @click="isOpen = !isOpen">Janella
+                    <img :src="user.avatar.small" alt="Avatar" class="c-avatar v--small v--circle object-cover inline-block">
+                    <button type="button" class="inline-block text-sm px-4 py-2 leading-none mt-4 lg:mt-0 outline-none focus:outline-none" @click="isOpen = !isOpen">
+                        {{user.name}}
                         <font-awesome-icon :icon="['fas', icon]" class="ml-2"/>
                     </button>
                 </div>
@@ -32,7 +33,7 @@ import axios from "axios";
         data() {
             return {
                 isOpen: false,
-                userAccount: localStorage.getItem('userDetails')
+                user: JSON.parse(localStorage.getItem('user'))
             }
         },
         computed: {
