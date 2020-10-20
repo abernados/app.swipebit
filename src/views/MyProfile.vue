@@ -11,17 +11,17 @@
                     <div class="max-w-4xl mx-auto">
                         <div class=" overflow-hidden text-left">
                             <div class="px-4 py-3 sm:px-6 bg-white border-yellow-dark border-l-4">
-                                <h3 class="text-xl font-bold text-blue-dark ">
+                                <h3 class="text-md font-bold text-blue-dark ">
                                     My Account
                                 </h3>
                             </div>
                             <div class="px-4 py-3 sm:px-6 ">
-                                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                <h3 class="text-md leading-6 font-medium text-gray-900">
                                     Change Password
                                 </h3>
                             </div>
                             <div class="px-4 py-3 sm:px-6">
-                                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                <h3 class="text-md leading-6 font-medium text-gray-900">
                                     Help Center
                                 </h3>
                             </div>
