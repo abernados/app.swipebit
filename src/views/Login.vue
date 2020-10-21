@@ -151,14 +151,13 @@ export default Vue.extend({
               position: "top-right",
               pauseOnHover: true,
             });
-            this.$toasted.show(response.data.message,{
+            let toast = this.$toasted.show(response.data.message,{
               duration: 6000,
               position: "top-right",
               type: "success",
               singleton: true,
               onComplete: this.goToOTP,
               closeOnSwipe:true,
-              icon: 'check',
            	 theme: "toasted-primary", 
             });
 
@@ -176,13 +175,12 @@ export default Vue.extend({
                 position: "top-right",
                 pauseOnHover: true,
               });
-              this.$toasted.show(errorMessage.data.message,{
+              let toast = this.$toasted.show(errorMessage.data.message,{
                 duration: 6000,
                 position: "top-right",
                 type: "error",
                 singleton: true,
                 closeOnSwipe:true,
-                icon: 'cancel',
                 theme: "toasted-primary", 
               });
             // });
@@ -198,13 +196,12 @@ export default Vue.extend({
             position: "top-right",
             pauseOnHover: true,
           });
-           this.$toasted.show(errorMessage.data.message,{
+           let toast = this.$toasted.show(errorMessage.data.message,{
                 duration: 6000,
                 position: "top-right",
                 type: "error",
                 singleton: true,
                 closeOnSwipe:true,
-                icon: 'cancel',
                 theme: "toasted-primary", 
               });
       }
