@@ -21,16 +21,7 @@ const routes: Array<RouteConfig> = [
     name: 'Home',
     meta: {
       layout: "default",
-      middleware: [auth],
-      title: 'SwipeBit',
-      metaTags: [
-        {name: 'twitter:card', content: 'summary'},
-        { name: 'twitter:title', content: 'SwipeBit' },
-        {name: 'twitter:image', content: '@/assets/og_image_swipebit.png'},
-        {property: 'og:image', content: '@/assets/og_image_swipebit.png' },
-        {property: 'og:site_name', content: 'SwipeBit'},
-        {property: 'og:type', content: 'website'},
-      ]
+      middleware: [auth]
     },
     component: Home,
   },
@@ -39,16 +30,7 @@ const routes: Array<RouteConfig> = [
     name: 'Login',
     component: Login,
     meta: {
-      middleware: [guest],
-      title: 'SwipeBit',
-      metaTags: [
-        {name: 'twitter:card', content: 'summary'},
-        { name: 'twitter:title', content: 'SwipeBit' },
-        {name: 'twitter:image', content: '@/assets/og_image_swipebit.png'},
-        {property: 'og:image', content: '@/assets/og_image_swipebit.png' },
-        {property: 'og:site_name', content: 'SwipeBit'},
-        {property: 'og:type', content: 'website'},
-      ]
+      middleware: [guest]
     },
   },
   {
@@ -64,16 +46,7 @@ const routes: Array<RouteConfig> = [
     name: 'Register',
     component: Register,
     meta: {
-      middleware: [guest],
-      title: 'SwipeBit',
-      metaTags: [
-        {name: 'twitter:card', content: 'summary'},
-        { name: 'twitter:title', content: 'SwipeBit' },
-        {name: 'twitter:image', content: '@/assets/og_image_swipebit.png'},
-        {property: 'og:image', content: '@/assets/og_image_swipebit.png' },
-        {property: 'og:site_name', content: 'SwipeBit'},
-        {property: 'og:type', content: 'website'},
-      ]
+      middleware: [guest]
     },
   },
   {
@@ -91,6 +64,7 @@ const routes: Array<RouteConfig> = [
     component: CheckForgotPassword
   },
   {
+    // path: '/reset-password',
     path: '/403',
     name: 'Unauthorized',
     component: CheckForgotPassword
