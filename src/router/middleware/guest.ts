@@ -1,4 +1,5 @@
-export default function guest ({ next, store }: { next: any; store: any} ){
+/* eslint-disable @typescript-eslint/no-explicit-any*/
+export default function guest({ next }: { next: any }) {
     if(localStorage.getItem('user')){
         return next({
            name: 'Home'
