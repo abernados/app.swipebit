@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import './plugins/fontawesome'
 import './plugins/vue-phone-number-input'
+import './plugins/vue-meta'
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'

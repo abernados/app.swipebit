@@ -27,6 +27,7 @@
     "vue-apexcharts": "^1.6.0",
     "vue-axios-cors": "^1.0.1",
     "vue-material-design-icons": "^4.9.0",
+    "vue-meta": "^2.4.0",
     "vue-phone-number-input": "^1.1.10",
     "vue-router": "^3.2.0",
     "vue-tippy": "^4.7.1",
