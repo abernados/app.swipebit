@@ -74,7 +74,7 @@
                                             Member since
                                         </dt>
                                         <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                                            {{user.created_at}}
+                                            {{moment(user.created_at).calendar()}}
                                         </dd>
                                     </div>
                                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -129,10 +129,13 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
     data(){
         return{
-            user: JSON.parse(localStorage.getItem('user'))
+            user: JSON.parse(localStorage.getItem('user')),
+            moment: moment
         }
     }
 }
