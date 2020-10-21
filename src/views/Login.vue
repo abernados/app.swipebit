@@ -124,6 +124,9 @@ export default Vue.extend({
     password: { required }
   },
    methods: {
+     goToOTP(){
+        window.location.replace("/otp");
+     },
     async submit(){
 
       try {
@@ -148,7 +151,18 @@ export default Vue.extend({
               position: "top-right",
               pauseOnHover: true,
             });
-            window.location.replace("/otp");
+            this.$toasted.show(response.data.message,{
+              duration: 6000,
+              position: "top-right",
+              type: "success",
+              singleton: true,
+              onComplete: this.goToOTP,
+              closeOnSwipe:true,
+              icon: 'check',
+           	 theme: "toasted-primary", 
+            });
+
+            // window.location.replace("/otp");
           })
           .catch((error) => {
              var errorMessage = JSON.parse(JSON.stringify(error.response));
@@ -161,6 +175,15 @@ export default Vue.extend({
                 dismissible: true,
                 position: "top-right",
                 pauseOnHover: true,
+              });
+              this.$toasted.show(errorMessage.data.message,{
+                duration: 6000,
+                position: "top-right",
+                type: "error",
+                singleton: true,
+                closeOnSwipe:true,
+                icon: 'cancel',
+                theme: "toasted-primary", 
               });
             // });
           });
@@ -175,6 +198,15 @@ export default Vue.extend({
             position: "top-right",
             pauseOnHover: true,
           });
+           this.$toasted.show(errorMessage.data.message,{
+                duration: 6000,
+                position: "top-right",
+                type: "error",
+                singleton: true,
+                closeOnSwipe:true,
+                icon: 'cancel',
+                theme: "toasted-primary", 
+              });
       }
     }
   }
