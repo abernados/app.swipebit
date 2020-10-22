@@ -7,9 +7,9 @@
             </div>
             <div class="block ml-auto relative">
                 <div class="block">
-                    <img :src="user.avatar.small" alt="Avatar" class="c-avatar v--small v--circle object-cover inline-block">
+                    <img :src="user ? user.avatar.small : ''" alt="Avatar" class="c-avatar v--small v--circle object-cover inline-block">
                     <button type="button" class="inline-block text-sm px-4 py-2 leading-none mt-4 lg:mt-0 outline-none focus:outline-none" @click="isOpen = !isOpen">
-                        {{user.name}}
+                        {{user ? user.name : ''}}
                         <font-awesome-icon :icon="['fas', icon]" class="ml-2"/>
                     </button>
                 </div>
