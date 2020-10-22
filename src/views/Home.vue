@@ -31,26 +31,12 @@
         <div class="o-box">
           <div class="o-box__body rounded-sm bg-white px-4 py-4">
             <div class="flex items-center justify-between">
-                <img src="@/assets/images/turkey_flag.svg" alt="Avatar" class="c-avatar v--small object-cover ">
-                <p class=" text-sm ml-2 uppercase font-bold">try</p>
-                <p class="ml-auto text-sm uppercase font-bold">500 try</p>
+                <img src="@/assets/images/swipe.svg" alt="Avatar" class="c-avatar v--small object-cover ">
+                <p class=" text-sm ml-2 uppercase font-bold">Balance</p>
+                <p class="ml-auto text-sm uppercase font-bold">{{balance || 0.00}}</p>
             </div>
           </div>
-          <div class="o-box__body rounded-sm bg-white px-4 py-4">
-            <div class="flex items-center justify-between">
-                <img src="@/assets/images/usa_flag.jpg" alt="Avatar" class="c-avatar v--small object-cover ">
-                <p class=" text-sm ml-2 uppercase font-bold">usd</p>
-                <p class="ml-auto text-sm uppercase font-bold">107 usd</p>
-            </div>
-          </div>
-          <div class="o-box__body rounded-sm bg-white px-4 py-4">
-            <div class="flex items-center justify-between">
-                <img src="@/assets/images/bitcoin_logo.png" alt="Avatar" class="c-avatar v--small object-cover ">
-                <p class=" text-sm ml-2 font-bold">Bitcoin</p>
-                <a href="#" class="ml-auto text-sm uppercase font-bold text-blue-500">buy now</a>
-            </div>
-          </div>
-          <div class="o-box__body rounded-sm bg-white px-4 py-4">
+          <!-- <div class="o-box__body rounded-sm bg-white px-4 py-4">
             <div class="flex items-center justify-between">
                 <img src="@/assets/images/etherium_logo.png" alt="Avatar" class="c-avatar v--small object-cover ">
                 <p class=" text-sm ml-2 font-bold">Etherium</p>
@@ -65,7 +51,7 @@
                   <font-awesome-icon :icon="['fas', 'angle-right']" class="ml-2"/>
                 </a>
             </div>
-          </div>
+          </div> -->
           <div class="o-box__body rounded-sm bg-white px-4 py-4 my-4">
             <div class="flex items-center justify-between">
             <font-awesome-icon :icon="['fas', 'shield-alt']" class="c-avatar v--small object-cover self-start ml-4 mt-10" />
@@ -204,9 +190,30 @@
 
 <script lang="ts">
 import Vue from "vue";
+import axios from "axios";
 
 export default Vue.extend({
   name: "Home",
-  components: {},
+  data(){
+    return{
+      balance: 0.00
+    }
+  },
+  created(){
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' +localStorage.getItem('access_token')
+
+    axios
+      .post(`https://api.swipebitnetwork.com/v1/transactions/check/balance`)
+      .then((response) => {
+        console.log(response.data);
+        this.balance = response.data.data.amount_cool;
+      });
+     
+  },
+  methods:{
+    verifyAccount(){
+      console.log('WALA PA ITO');
+    }
+  }
 });
 </script>
