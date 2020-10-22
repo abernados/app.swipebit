@@ -77,7 +77,7 @@
                                             {{moment(user.created_at).calendar()}}
                                         </dd>
                                     </div>
-                                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <!-- <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <dt class="text-sm leading-5 font-medium text-gray-500">
                                             Attachments
                                         </dt>
@@ -115,7 +115,7 @@
                                                 </li>
                                             </ul>
                                         </dd>
-                                    </div>
+                                    </div> -->
                                 </dl>
                             </div>
                         </div>
