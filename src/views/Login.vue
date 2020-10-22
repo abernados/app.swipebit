@@ -1,10 +1,5 @@
 <template>
   <section class="Login flex h-screen">
-    <!-- <div
-      class="lg:w-2/3 o-page o-box p-60 bg-contain bg-no-repeat bg-center md:block hidden bg-blue-800"
-    >
-      <img src="@/assets/images/secure_login.svg" class="mx-auto" />
-    </div> -->
     <div class="flex items-center lg:w-2/3 o-page o-box bg-blue-light">
       <div class="flex-1 text-center px-4 py-2 m-2">
         <img
@@ -143,16 +138,9 @@ export default Vue.extend({
             console.log(response.data);
             console.log('Token: ' + response.data.data.token);
             localStorage.setItem('access_token', response.data.data.token);
-            this.$toast.open({
-              message: response.data.message,
-              type: "success",
-              duration: 6000,
-              dismissible: true,
-              position: "top-right",
-              pauseOnHover: true,
-            });
-            let toast = this.$toasted.show(response.data.message,{
-              duration: 6000,
+           
+            let toast = (Vue as any).toasted.show(response.data.message,{
+              duration: 500,
               position: "top-right",
               type: "success",
               singleton: true,
@@ -161,43 +149,23 @@ export default Vue.extend({
            	 theme: "toasted-primary", 
             });
 
-            // window.location.replace("/otp");
           })
           .catch((error) => {
              var errorMessage = JSON.parse(JSON.stringify(error.response));
-            // errorMessage.data.forEach(element => {
-              // console.log(element)
-               this.$toast.open({
-                message: errorMessage.data.message,
-                type: "error",
-                duration: 6000,
-                dismissible: true,
-                position: "top-right",
-                pauseOnHover: true,
-              });
-              let toast = this.$toasted.show(errorMessage.data.message,{
-                duration: 6000,
+              let toast = (Vue as any).toasted.show(errorMessage.data.message,{
+                duration: 3000,
                 position: "top-right",
                 type: "error",
                 singleton: true,
                 closeOnSwipe:true,
                 theme: "toasted-primary", 
               });
-            // });
           });
       } catch ( error ) {
         console.log("Your error is 2: " + error);
          var errorMessage = JSON.parse(JSON.stringify(error.response));
-          this.$toast.open({
-            message: errorMessage.data.message,
-            type: "error",
-            duration: 6000,
-            dismissible: true,
-            position: "top-right",
-            pauseOnHover: true,
-          });
-           let toast = this.$toasted.show(errorMessage.data.message,{
-                duration: 6000,
+           let toast = (Vue as any).toasted.show(errorMessage.data.message,{
+                duration: 3000,
                 position: "top-right",
                 type: "error",
                 singleton: true,
