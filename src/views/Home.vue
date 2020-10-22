@@ -57,7 +57,7 @@
             <font-awesome-icon :icon="['fas', 'shield-alt']" class="c-avatar v--small object-cover self-start ml-4 mt-10" />
                 <div>
                   <p class="font-bold ml-6 text-left text-sm uppercase">Verify Your Account</p>
-                  <p class="pb-4 text-left mx-6 mt-4">Click <button @click="verifyAccount"> here </button> to unlock Premium Features and to have multiple cards on your account.</p>
+                  <p class="pb-4 text-left mx-6 mt-4">Click <button @click="verifyAccount" class="font-bold text-yellow-dark"> here </button> to unlock Premium Features and to have multiple cards on your account.</p>
                 </div>
             </div>
           </div>
@@ -213,6 +213,22 @@ export default Vue.extend({
   methods:{
     verifyAccount(){
       console.log('WALA PA ITO');
+       axios.defaults.headers.common['Authorization'] = 'Bearer ' +localStorage.getItem('access_token')
+        /* eslint-disable  */
+
+      axios
+        .post(`https://api.swipebitnetwork.com/v1/settings/email_verification/send`)
+        .then((response) => {
+          console.log(response.data);
+          const toast = (Vue as any).toasted.show(response.data.message,{
+              duration: 1500,
+              position: "top-right",
+              type: "success",
+              singleton: true,
+              closeOnSwipe:true,
+           	 theme: "toasted-primary", 
+            });
+        });
     }
   }
 });
