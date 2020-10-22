@@ -1,71 +1,20 @@
 <template>
   <section class="flex h-screen">
-    <div class="flex items-center lg:w-1/2 o-page o-box bg-blue-light">
-      <div class="flex-1 text-center px-4 py-2 m-2">
+    <div class="flex items-center o-page o-box bg-blue-light w-full place-content-center">
+      <div class="px-4 py-2 m-2">
         <img
-          src="@/assets/images/phone-sent.svg"
-          class="mx-auto w-3/4"
+          src="@/assets/images/404.svg"
+          class="mx-auto w-3/4 h-64"
         >
-      </div>
-    </div>
-    <div class="lg:w-1/2 w-full h-full py-24">
-      <header class="o-box__header text-center border-none">
-        <div class="flex justify-center">
-          <logo class="w-1/3" />
+        <div class="text-white font-bold">
+          <h2 class="text-6xl">There's NOTHING here</h2>
+          <p class="text-2xl">...maybe the page you're looking for is not found or never existed.'</p>
         </div>
-        <h1 class="mb-0 text-5xl">
-          Verification
-        </h1>
-        <p class="mb-0 text-md">
-          You will get an OTP via SMS
-        </p>
-      </header>
-
-      <div class="o-box__body border-none">
-        <form class="mb-4 mx-20" @submit.prevent="submit()" >
-          <div class="c-field"  :class="{ 'text-red-600': $v.code.$error }">
-            <label
-              class="c-field__label float-left"
-            >Enter here the OTP sent to your phone number</label>
-            <input
-              class="c-field__input"
-              :class="{ 'border-red-600 border-2': $v.code.$error }"
-              type="text"
-              name="code"
-              v-model="code"
-            >
-              <ul v-if="$v.$error" class="flex mt-1">
-                <li
-                  class="text-red-600 mb-2 text-xs"
-                  v-if="!$v.code.required"
-                >
-                  <strong>This field is required</strong>
-                </li>
-              </ul>
-          </div>
-          <div class="c-field my-4 float-right">
-            <button
-              type="button"
-              @click="resendOtp"
-              class="text-blue-light font-bold"
-            >
-              Resend again?
-            </button>
-          </div>
-          <button
-             type="submit"
-            :disabled="$v.$error || !code"
-            class="c-button v--warning block w-full mt-6"
-            :class="{ 'v--disabled': $v.$error || !code }"
-          >
-            Verify
-          </button>
-        </form>
-        <div class="c-field my-4">
+         <div class="c-field my-8">
           <p>
             <router-link
               to="/login"
-              class="text-blue-dark font-bold"
+              class="font-bold c-button v--warning v--outline"
             >
               Return to Log in
             </router-link>

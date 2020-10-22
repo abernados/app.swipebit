@@ -1,5 +1,5 @@
 <template>
-  <section class="flex h-screen">
+  <section class="flex h-screen" v-if="show">
     <div class="flex items-center lg:w-1/2 o-page o-box bg-blue-light">
       <div class="flex-1 text-center px-4 py-2 m-2">
         <img
@@ -26,7 +26,7 @@
           This is just a test. Please ignore.
         </section>
 
-        <form class="mb-4 mx-20" >
+        <form class="mb-4 mx-20" @submit.prevent="submit()" >
           <div class="c-field"  :class="{ 'text-red-600': $v.code.$error }">
             <label
               class="c-field__label float-left"
@@ -57,9 +57,10 @@
             </button>
           </div>
           <button
-            type="button"
-            @click="submit"
+            type="submit"
+            :disabled="$v.$error || !code"
             class="c-button v--warning block w-full mt-6"
+            :class="{ 'v--disabled': $v.$error || !code }"
           >
             Verify
           </button>
@@ -90,6 +91,7 @@ export default Vue.extend({
     return{
       code: null,
       token: null,
+      show: false,
     }
   },
   validations: {
@@ -106,17 +108,29 @@ export default Vue.extend({
           .then((response) => {
             console.log(response.data);
             this.token = response.data.data.token;
+            this.show=true;
           })
           .catch((error) => {
             console.log("Your error is: " + error.response.data);
             console.info(error.config);
+            this.show=false;
+           this.goTo404();
           });
-      } catch ({ response }) {
-        console.log("Your error is 2: " + response);
+      } catch ({ error }) {
+        console.log("Your error is 2: " + error);
+        var errorMessage = JSON.parse(JSON.stringify(error.response));
+            this.show=false;
+          this.goTo404();
       }
   
   },
    methods: {
+     goToResetPasswordPage(){
+            window.location.replace("/reset-password");
+     },
+     goTo404(){
+            window.location.replace("/404");
+     },
     async submit(){
     console.log('OLD TOKEN: '+this.$route.query.token);
     console.log('NEW TOKEN: '+this.token);
@@ -131,29 +145,46 @@ export default Vue.extend({
           })
           .then((response) => {
             console.log(response.data);
-             this.$toast.open({
-              message: response.data.message,
-              type: "success",
-              duration: 6000,
-              dismissible: true,
+            let toast = (Vue as any).toasted.show(response.data.message,{
+              duration: 1500,
               position: "top-right",
-              pauseOnHover: true,
+              type: "success",
+              singleton: true,
+              onComplete: this.goToResetPasswordPage,
+              closeOnSwipe:true,
+           	 theme: "toasted-primary", 
             });
             localStorage.setItem('forgotpass_token', response.data.data.token);
             localStorage.setItem('forgotpass_code', response.data.data.code);
-            window.location.replace("/reset-password");
           })
           .catch((error) => {
             console.log("Your error is: " + error.response.data);
             console.info(error.config);
+            var errorMessage = JSON.parse(JSON.stringify(error.response));
+             let toast = (Vue as any).toasted.show(errorMessage.data.message,{
+                duration: 3000,
+                position: "top-right",
+                type: "error",
+                singleton: true,
+                closeOnSwipe:true,
+                theme: "toasted-primary", 
+              });
           });
-      } catch ({ response }) {
-        console.log("Your error is 2: " + response);
+      } catch ({ error }) {
+        console.log("Your error is 2: " + error);
+        var errorMessage = JSON.parse(JSON.stringify(error.response));
+             let toast = (Vue as any).toasted.show(errorMessage.data.message,{
+                duration: 3000,
+                position: "top-right",
+                type: "error",
+                singleton: true,
+                closeOnSwipe:true,
+                theme: "toasted-primary", 
+              });
       }
     },
     resendOtp(){
-    console.log('TOKEN: '+this.$route.query.token);
-
+      console.log('TOKEN: '+this.$route.query.token);
         try {
         /* eslint-disable  */
         axios
@@ -162,21 +193,39 @@ export default Vue.extend({
           })
           .then((response) => {
             console.log(response.data);
-             this.$toast.open({
-              message: response.data.message,
-              type: "success",
-              duration: 3000,
-              dismissible: true,
+             let toast = (Vue as any).toasted.show(response.data.message,{
+              duration: 1500,
               position: "top-right",
-              pauseOnHover: true,
+              type: "success",
+              singleton: true,
+              closeOnSwipe:true,
+           	 theme: "toasted-primary", 
             });
           })
           .catch((error) => {
             console.log("Your error is: " + error.response.data);
             console.info(error.config);
+            var errorMessage = JSON.parse(JSON.stringify(error.response));
+              let toast = (Vue as any).toasted.show('Oops! Something went wrong. Unable to resend the OTP',{
+                duration: 3000,
+                position: "top-right",
+                type: "error",
+                singleton: true,
+                closeOnSwipe:true,
+                theme: "toasted-primary", 
+              });
           });
-      } catch ({ response }) {
-        console.log("Your error is 2: " + response);
+      } catch ({ error }) {
+        console.log("Your error is 2: " + error);
+        var errorMessage = JSON.parse(JSON.stringify(error.response));
+              let toast = (Vue as any).toasted.show('Oops! Something went wrong. Unable to resend the OTP',{
+                duration: 3000,
+                position: "top-right",
+                type: "error",
+                singleton: true,
+                closeOnSwipe:true,
+                theme: "toasted-primary", 
+              });
       }
     }
 

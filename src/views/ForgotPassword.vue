@@ -32,7 +32,7 @@
           This is just a test. Please ignore.
         </section>
 
-        <form class="mb-4 mx-20" >
+        <form class="mb-4 mx-20"  @submit.prevent="submit()" >
           <div class="c-field"  :class="{ 'text-red-600': $v.username.$error }">
             <label
               class="c-field__label float-left"
@@ -55,9 +55,10 @@
           </div>
 
           <button
-            type="button"
-            @click="submit"
+            type="submit"
+            :disabled="$v.$error || !username"
             class="c-button v--warning block w-full mt-6"
+            :class="{ 'v--disabled': $v.$error || !username }"
           >
             Reset password
           </button>
@@ -93,6 +94,9 @@ export default Vue.extend({
     username: { required },
   },
    methods: {
+     goToDashboard(){
+        window.location.replace("/");
+     },
     async submit(){
 
       try {
@@ -105,23 +109,40 @@ export default Vue.extend({
           })
           .then((response) => {
             console.log(response.data);
-             this.$toast.open({
-              message: response.data.message,
-              type: "success",
-              duration: 3000,
-              dismissible: true,
+              let toast = (Vue as any).toasted.show(response.data.message,{
+              duration: 1500,
               position: "top-right",
-              pauseOnHover: true,
+              type: "success",
+              singleton: true,
+              onComplete: this.validateForgotpasswordAgain,
+              closeOnSwipe:true,
+           	 theme: "toasted-primary", 
             });
-            this.validateForgotpasswordAgain();
-
           })
           .catch((error) => {
             console.log("Your error is: " + error.response.data);
             console.info(error.config);
+             var errorMessage = JSON.parse(JSON.stringify(error.response));
+            let toast = (Vue as any).toasted.show(errorMessage.data.message,{
+                duration: 3000,
+                position: "top-right",
+                type: "error",
+                singleton: true,
+                closeOnSwipe:true,
+                theme: "toasted-primary", 
+              });
           });
-      } catch ({ response }) {
-        console.log("Your error is 2: " + response);
+      } catch ({ error }) {
+        console.log("Your error is 2: " + error);
+         var errorMessage = JSON.parse(JSON.stringify(error.response));
+             let toast = (Vue as any).toasted.show(errorMessage.data.message,{
+                duration: 3000,
+                position: "top-right",
+                type: "error",
+                singleton: true,
+                closeOnSwipe:true,
+                theme: "toasted-primary", 
+              });
       }
     },
     async validateForgotpasswordAgain(){
@@ -137,42 +158,26 @@ export default Vue.extend({
             localStorage.setItem('access_token', response.data.data.token);
             axios.defaults.headers.common['Authorization'] = response.data.data.token
 
-
-             this.$toast.open({
-              message: response.data.message,
-              type: "success",
-              duration: 3000,
-              dismissible: true,
-              position: "top-right",
-              pauseOnHover: true,
-            });
-                window.location.replace('/dashboard')
-
+              let toast = (Vue as any).toasted.show(response.data.message,{
+                duration: 1500,
+                position: "top-right",
+                type: "success",
+                singleton: true,
+                onComplete: this.goToDashboard,
+                closeOnSwipe:true,
+                theme: "toasted-primary", 
+              });
           })
           .catch((error) => {
+            var errorMessage = JSON.parse(JSON.stringify(error.response));
             console.log("Your error is: " + error.response.data);
             console.info(error.config);
-            var errorMessage = JSON.parse(JSON.stringify(error.response));
-              this.$toast.open({
-                message: errorMessage.data.message,
-                type: "error",
-                duration: 6000,
-                dismissible: true,
-                position: "top-right",
-                pauseOnHover: true,
-              });
+            console.log("Errors: " +errorMessage.data.message)
           });
       } catch ({ error }) {
+        var errorMessage = JSON.parse(JSON.stringify(error.response));
         console.log("Your error is 2: " + error);
-          var errorMessage = JSON.parse(JSON.stringify(error.response));
-              this.$toast.open({
-                message: errorMessage.data.message,
-                type: "error",
-                duration: 6000,
-                dismissible: true,
-                position: "top-right",
-                pauseOnHover: true,
-              });
+        console.log("Errors: " +errorMessage.data.message)
       }
     },
    

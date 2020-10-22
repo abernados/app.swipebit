@@ -26,8 +26,7 @@
           This is just a test. Please ignore.
         </section>
 
-        <form
-        ref="anyName" @submit="submit"
+        <form @submit.prevent="submit()"
           class="mb-4"
         >
           <div class="o-two-columns">
@@ -208,9 +207,10 @@
               </label>
             </div>
           <button
-            type="button"
+            type="submit"
+            :disabled="$v.$error || !username || !password || !name || !contactNumber || !email || !repeatPassword || !hasTerms"
             class="c-button v--warning block w-full mt-6"
-            @click="submit"
+            :class="{ 'v--disabled': $v.$error || !username || !password || !name || !contactNumber || !email || !repeatPassword || !hasTerms}"
           >
             Register
           </button>
@@ -266,6 +266,9 @@ export default Vue.extend({
           repeatPassword: { sameAsPassword: sameAs('password') }
   },
   methods: {
+    goToOTP(){
+        window.location.replace("/otp");
+     },
     async submit(){
       try {
         /* eslint-disable  */
@@ -285,40 +288,38 @@ export default Vue.extend({
           .then((response) => {
             console.log(response.data.success);
             localStorage.setItem('access_token', response.data.data.token);
-             this.$toast.open({
-              message: response.data.message,
-              type: "success",
-              duration: 6000,
-              dismissible: true,
+             let toast = (Vue as any).toasted.show(response.data.message,{
+              duration: 2000,
               position: "top-right",
-              pauseOnHover: true,
+              type: "success",
+              singleton: true,
+              onComplete: this.goToOTP,
+              closeOnSwipe:true,
+           	 theme: "toasted-primary", 
             });
-            this.loading = false;
-            window.location.replace("/otp");
           })
           .catch((error) => {
             var errorMessage = JSON.parse(JSON.stringify(error.response));
-               this.$toast.open({
-                message: errorMessage.data.message,
-                type: "error",
-                duration: 6000,
-                dismissible: true,
+              let toast = (Vue as any).toasted.show(errorMessage.data.message,{
+                duration: 3000,
                 position: "top-right",
-                pauseOnHover: true,
+                type: "error",
+                singleton: true,
+                closeOnSwipe:true,
+                theme: "toasted-primary", 
               });
-            
           });
       } catch (error) {
         console.log("Your error is 2: " + error);
          var errorMessage = JSON.parse(JSON.stringify(error.response));
-               this.$toast.open({
-                message: errorMessage.data.message,
-                type: "error",
-                duration: 6000,
-                dismissible: true,
-                position: "top-right",
-                pauseOnHover: true,
-              });
+          let toast = (Vue as any).toasted.show(errorMessage.data.message,{
+            duration: 3000,
+            position: "top-right",
+            type: "error",
+            singleton: true,
+            closeOnSwipe:true,
+            theme: "toasted-primary", 
+          });
       }
     }
   },

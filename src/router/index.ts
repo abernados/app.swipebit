@@ -8,6 +8,7 @@ import OTP from '../views/OTP.vue'
 import ResetPassword from '../views/ResetPassword.vue'
 import CheckForgotPassword from '../views/CheckForgotPassword.vue'
 import MyProfile from '../views/MyProfile.vue'
+import Error404 from '../views/404.vue'
 
 import guest from './middleware/guest'
 import auth from './middleware/auth'
@@ -81,6 +82,11 @@ const routes: Array<RouteConfig> = [
     meta: {
       middleware: [auth]
     },
+  },
+  {
+    path: '/404',
+    name: 'Error404',
+    component: Error404,
   },
   
   // {

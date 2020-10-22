@@ -26,7 +26,7 @@
           This is just a test. Please ignore.
         </section>
 
-        <form class="my-4">
+        <form class="my-4" @submit.prevent="submit()" >
           <div class="c-field" :class="{ 'text-red-600': $v.username.$error }">
             <label
               class="c-field__label float-left"
@@ -76,11 +76,11 @@
               Forgot password?
             </router-link>
           </div>
-
           <button
-            type="button"
-            @click="submit"
+            type="submit"
+            :disabled="$v.$error || !username || !password"
             class="c-button v--warning block w-full mt-6"
+            :class="{ 'v--disabled': $v.$error || !username || !password }"
           >
             Sign in
           </button>
@@ -140,7 +140,7 @@ export default Vue.extend({
             localStorage.setItem('access_token', response.data.data.token);
            
             let toast = (Vue as any).toasted.show(response.data.message,{
-              duration: 500,
+              duration: 1500,
               position: "top-right",
               type: "success",
               singleton: true,
