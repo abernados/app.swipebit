@@ -11,6 +11,7 @@ import '@/assets/css/tailwind.css'
 
 // layouts
 import Default from "./layouts/Default.vue"
+import NoNavbar from "./layouts/NoNavbar.vue"
 
 import Vuelidate from 'vuelidate';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
@@ -26,6 +27,7 @@ Vue.use(Vuelidate);
 
 // layouts
 Vue.component('default-layout', Default)
+Vue.component('no-navbar', NoNavbar)
 
 Vue.component('logo', require('./components/Logo').default)
 Vue.component('widget-tile', require('./components/WidgetTile').default)

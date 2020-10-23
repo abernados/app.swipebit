@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-      <router-view v-show="!user"/>
-      <span></span>    
-      <component :is="layout" v-show="user">
+      <!-- <router-view v-show="!user"/>
+      <span></span>     -->
+      <component :is="layout">
       <router-view />
     </component>
   </div>
