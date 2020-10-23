@@ -31,10 +31,16 @@
         <div class="o-box">
           <div class="o-box__body rounded-sm bg-white px-4 py-4">
             <div class="flex items-center justify-between">
-                <img src="@/assets/images/swipe.svg" alt="Avatar" class="c-avatar v--small object-cover ">
-                <p class=" text-sm ml-2 uppercase font-bold">Balance</p>
-                <p class="ml-auto text-sm uppercase font-bold">{{balance || 0.00}}</p>
+                <!-- <img src="@/assets/images/swipe.svg" alt="Avatar" class="c-avatar v--small object-cover "> -->
+                <p class=" text-sm ml-2 uppercase font-bold">Wallet Balance</p>
+                <button class="rounded-full px-4 text-sm c-button font-bold focus:outline-none" @click="reloadBalance" :class="{ 'animate-spin': loading }">
+                  <font-awesome-icon :icon="['fas', 'sync']" />
+                </button>
             </div>
+            <div class="text-4xl text-left px-2 text-blue-500" v-if="!loading">
+              {{balance || 0.00}}
+            </div>
+            <div class="animate-pulse bg-gray-200 mt-2 px-2 py-6 text-4xl text-blue-500 text-left" v-else></div>
           </div>
           <!-- <div class="o-box__body rounded-sm bg-white px-4 py-4">
             <div class="flex items-center justify-between">
@@ -57,7 +63,7 @@
             <font-awesome-icon :icon="['fas', 'shield-alt']" class="c-avatar v--small object-cover self-start ml-4 mt-10" />
                 <div>
                   <p class="font-bold ml-6 text-left text-sm uppercase">Verify Your Account</p>
-                  <p class="pb-4 text-left mx-6 mt-4">Click <button @click="verifyAccount" class="font-bold text-yellow-dark"> here </button> to unlock Premium Features and to have multiple cards on your account.</p>
+                  <p class="pb-4 text-left mx-6 mt-4">Click <button @click="verifyAccount" class="font-bold text-yellow-dark focus:outline-none"> here </button> to unlock Premium Features and to have multiple cards on your account.</p>
                 </div>
             </div>
           </div>
@@ -196,21 +202,26 @@ export default Vue.extend({
   name: "Home",
   data(){
     return{
-      balance: 0.00
+      balance: 0.00,
+      loading: false
     }
   },
   created(){
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' +localStorage.getItem('access_token')
-
-    axios
-      .post(`https://api.swipebitnetwork.com/v1/transactions/check/balance`)
-      .then((response) => {
-        console.log(response.data);
-        this.balance = response.data.data.amount_cool;
-      });
-     
+   this.reloadBalance();
   },
   methods:{
+    reloadBalance(){
+      this.loading =true;
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' +localStorage.getItem('access_token')
+      axios
+        .post(`https://api.swipebitnetwork.com/v1/transactions/check/balance`)
+        .then((response) => {
+          console.log(response.data);
+          this.balance = response.data.data.amount_cool;
+          this.loading =false;
+        });
+
+    },
     verifyAccount(){
       console.log('WALA PA ITO');
        axios.defaults.headers.common['Authorization'] = 'Bearer ' +localStorage.getItem('access_token')
