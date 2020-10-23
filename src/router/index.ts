@@ -7,6 +7,12 @@ import ForgotPassword from '../views/ForgotPassword.vue'
 import OTP from '../views/OTP.vue'
 import ResetPassword from '../views/ResetPassword.vue'
 import CheckForgotPassword from '../views/CheckForgotPassword.vue'
+import ProfilePicture from '../views/Settings/ProfilePicture/View.vue'
+// import Password from '../views/Settings/Password/Edit.vue'
+import EditAccount from '../views/Settings/MyAccount/Edit.vue'
+import ViewAccount from '../views/Settings/MyAccount/View.vue'
+// import EditOtpMode from '../views/Settings/OtpMode/Edit.vue'
+// import ViewOtpMode from '../views/Settings/OtpMode/View.vue'
 import MyProfile from '../views/MyProfile.vue'
 import Error404 from '../views/404.vue'
 
@@ -31,6 +37,7 @@ const routes: Array<RouteConfig> = [
     name: 'Login',
     component: Login,
     meta: {
+      layout: "no-navbar",
       middleware: [guest]
     },
   },
@@ -39,6 +46,7 @@ const routes: Array<RouteConfig> = [
     name: 'ForgotPassword',
     component: ForgotPassword,
     meta: {
+      layout: "no-navbar",
       middleware: [guest]
     },
   },
@@ -47,6 +55,7 @@ const routes: Array<RouteConfig> = [
     name: 'Register',
     component: Register,
     meta: {
+      layout: "no-navbar",
       middleware: [guest]
     },
   },
@@ -55,6 +64,7 @@ const routes: Array<RouteConfig> = [
     name: 'OTP',
     component: OTP,
     meta: {
+      layout: "no-navbar",
       middleware: [guest]
     },
   },
@@ -62,31 +72,79 @@ const routes: Array<RouteConfig> = [
     // path: '/reset-password',
     path: '/auth/forgot_password/check',
     name: 'CheckForgotPassword',
-    component: CheckForgotPassword
+    component: CheckForgotPassword,
+    meta: {
+      layout: "no-navbar",
+    },
   },
   {
     // path: '/reset-password',
     path: '/403',
     name: 'Unauthorized',
-    component: CheckForgotPassword
+    component: CheckForgotPassword,
+    meta: {
+      layout: "no-navbar",
+    },
   },
   {
     path: '/reset-password',
     name: 'ResetPassword',
-    component: ResetPassword
+    component: ResetPassword,
+    meta: {
+      layout: "no-navbar",
+    },
   },
   {
-    path: '/my-profile',
+    path: '/profile',
     name: 'MyProfile',
     component: MyProfile,
     meta: {
-      middleware: [auth]
+      middleware: [auth],
+      layout: "default",
     },
+    children: [
+          {
+            path: 'account',
+            name: 'MyProfile.View',
+            component: ViewAccount,
+          },
+          {
+            path: 'account/edit',
+            name: 'MyProfile.Edit',
+            component: EditAccount,
+          },       
+          {
+            path: 'picture',
+            name: 'ProfilePicture.View',
+            component: ProfilePicture
+          }
+    ]
   },
+  //     // {
+  //     //   path: 'password',
+  //     //   component: Password
+  //     // },
+  //     // {
+  //     //   path: 'otp-mode',
+  //     //   component: ViewOtpMode
+  //     // },
+  //     // {
+  //     //   path: 'otp-mode/edit',
+  //     //   component: EditOtpMode
+  //     // },
+  //     // {
+  //     //   path: 'avatar',
+  //     //   component: Avatar
+  //     // }
+  //   ]
+  // },
   {
     path: '/404',
     name: 'Error404',
     component: Error404,
+    meta: {
+      layout: "no-navbar",
+    },
   },
   
   // {

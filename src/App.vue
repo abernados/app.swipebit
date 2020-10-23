@@ -36,8 +36,8 @@ export default {
     }
   },
   created(){
-    console.log('Token:' + localStorage.access_token);
-    console.log('User:' + localStorage.user);
+    // console.log('Token:' + localStorage.access_token);
+    // console.log('User:' + localStorage.user);
     this.isLoggedIn =  this.user !== null ? true : false;
   },
   computed: {
