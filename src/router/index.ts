@@ -11,8 +11,8 @@ import ProfilePicture from '../views/Settings/ProfilePicture/View.vue'
 import Password from '../views/Settings/Password/Edit.vue'
 import EditAccount from '../views/Settings/MyAccount/Edit.vue'
 import ViewAccount from '../views/Settings/MyAccount/View.vue'
-// import EditOtpMode from '../views/Settings/OtpMode/Edit.vue'
-// import ViewOtpMode from '../views/Settings/OtpMode/View.vue'
+import EditOTPMode from '../views/Settings/OtpMode/Edit.vue'
+import ViewOTPMode from '../views/Settings/OtpMode/View.vue'
 import ProfileLayout from '../views/Settings/Layout.vue'
 import Error404 from '../views/404.vue'
 
@@ -107,22 +107,50 @@ const routes: Array<RouteConfig> = [
             path: 'account',
             name: 'MyProfile.View',
             component: ViewAccount,
+            meta: {
+              middleware: [auth],
+            },
           },
           {
             path: 'account/edit',
             name: 'MyProfile.Edit',
             component: EditAccount,
+            meta: {
+              middleware: [auth],
+            },
           },       
           {
             path: 'picture',
             name: 'ProfilePicture',
-            component: ViewAccount
+            component: ViewAccount,
+            meta: {
+              middleware: [auth],
+            },
           },       
           {
             path: 'password',
             name: 'Password',
-            component: Password
-          }
+            component: Password,
+            meta: {
+              middleware: [auth],
+            },
+        },
+        {
+          path: 'otp-mode',
+          name: 'OTPMode.View',
+          component: ViewOTPMode,
+          meta: {
+            middleware: [auth],
+          },
+        },
+        {
+          path: 'otp-mode/edit',
+          name: 'OTPMode.Edit',
+          component: EditOTPMode,
+          meta: {
+            middleware: [auth],
+          },
+        },
     ]
   },
   //     // {

@@ -12,20 +12,20 @@
                             <div class=" overflow-hidden text-left">
                                 <div class="px-4 py-3 sm:px-6"
                                     :class="{
-                                        'bg-white border-yellow-dark border-l-4': $route.matched.some(({ name }) => name === 'MyProfile.View'),
+                                        'bg-white border-yellow-dark border-l-4': $route.matched.some(({ name }) => name === 'MyProfile.View' || name === 'MyProfile.Edit'),
                                     }">
                                     
                                     <h3 class="text-md"
                                         :class="{
-                                            'font-bold text-blue-dark': $route.matched.some(({ name }) => name === 'MyProfile.View'),
-                                            'font-medium text-gray-900': !$route.matched.some(({ name }) => name === 'MyProfile.View'),
+                                            'font-bold text-blue-dark': $route.matched.some(({ name }) => name === 'MyProfile.View' || name === 'MyProfile.Edit'),
+                                            'font-medium text-gray-900': !$route.matched.some(({ name }) => name === 'MyProfile.View'|| name === 'MyProfile.Edit'),
                                         }">
                                         <router-link to="/profile/account">My Account</router-link>
                                     </h3>
                                 </div>
                                 <div class="px-4 py-3 sm:px-6"
                                     :class="{
-                                        'bg-white border-yellow-dark border-l-4': $route.matched.some(({ name }) => name === 'ProfilePicture.View'),
+                                        'bg-white border-yellow-dark border-l-4': $route.matched.some(({ name }) => name === 'ProfilePicture'),
                                     }">
                                     <h3 class="text-md"
                                         :class="{
@@ -45,9 +45,16 @@
                                         <router-link to="/profile/password">Password Management</router-link>
                                     </h3>
                                 </div>
-                                <div class="px-4 py-3 sm:px-6">
-                                    <h3 class="text-md leading-6 font-medium text-gray-900">
-                                        OTP Mode Settings
+                                <div class="px-4 py-3 sm:px-6"
+                                 :class="{
+                                        'bg-white border-yellow-dark border-l-4': $route.matched.some(({ name }) => name === 'OTPMode.View' || name === 'OTPMode.Edit'),
+                                    }">
+                                    <h3 class="text-md"
+                                        :class="{
+                                            'font-bold text-blue-dark': $route.matched.some(({ name }) => name === 'OTPMode.View' || name === 'OTPMode.Edit'),
+                                            'font-medium text-gray-900': !$route.matched.some(({ name }) => name === 'OTPMode.View'|| name === 'OTPMode.Edit'),
+                                        }">
+                                        <router-link to="/profile/otp-mode">OTP Mode Settings</router-link>
                                     </h3>
                                 </div>
                             </div>
