@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-200">
+    <div class="bg-gray-200 h-screen">
         <nav-bar />
         <tab />
 

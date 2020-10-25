@@ -5,8 +5,7 @@
 }
 
 .c-field__input {
-    @apply block px-4 py-3 rounded-none w-full outline-none shadow-none text-black rounded-lg;
-    border: 1px solid #9cb3ae;
+    @apply block px-4 py-3 rounded-none w-full outline-none shadow-none text-black bg-gray-300;
     transition: all 150ms ease-in-out;
     &:focus {
         @apply rounded-full border-blue-500 border-2 border-solid text-blue-500;
@@ -14,7 +13,7 @@
 }
 
 .c-field__input:focus {
-    @apply border-blue-dark border-2 border-solid text-blue-dark;
+    @apply border-blue-dark border border-solid text-blue-dark bg-white;
 }
 
 .c-field__input[readonly] {
