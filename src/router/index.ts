@@ -8,12 +8,12 @@ import OTP from '../views/OTP.vue'
 import ResetPassword from '../views/ResetPassword.vue'
 import CheckForgotPassword from '../views/CheckForgotPassword.vue'
 import ProfilePicture from '../views/Settings/ProfilePicture/View.vue'
-// import Password from '../views/Settings/Password/Edit.vue'
+import Password from '../views/Settings/Password/Edit.vue'
 import EditAccount from '../views/Settings/MyAccount/Edit.vue'
 import ViewAccount from '../views/Settings/MyAccount/View.vue'
 // import EditOtpMode from '../views/Settings/OtpMode/Edit.vue'
 // import ViewOtpMode from '../views/Settings/OtpMode/View.vue'
-import MyProfile from '../views/MyProfile.vue'
+import ProfileLayout from '../views/Settings/Layout.vue'
 import Error404 from '../views/404.vue'
 
 import guest from './middleware/guest'
@@ -96,8 +96,8 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/profile',
-    name: 'MyProfile',
-    component: MyProfile,
+    name: 'ProfileLayout',
+    component: ProfileLayout,
     meta: {
       middleware: [auth],
       layout: "default",
@@ -115,8 +115,13 @@ const routes: Array<RouteConfig> = [
           },       
           {
             path: 'picture',
-            name: 'ProfilePicture.View',
-            component: ProfilePicture
+            name: 'ProfilePicture',
+            component: ViewAccount
+          },       
+          {
+            path: 'password',
+            name: 'Password',
+            component: Password
           }
     ]
   },

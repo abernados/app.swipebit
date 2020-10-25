@@ -168,7 +168,10 @@
                         <font-awesome-icon :icon="['fas', 'arrow-left']"/>
                         Back
                     </router-link>
-                    <button type="submit" class="c-button v--success">
+                    <button type="submit" class="c-button v--success"
+                        :disabled="$v.$invalid"
+                         :class="{ 'v--disabled': $v.$invalid }"
+                    >
                         <font-awesome-icon :icon="['fas', 'check']"/>
                         Update
                     </button>
