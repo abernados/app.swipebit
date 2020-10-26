@@ -163,6 +163,7 @@ export default {
               closeOnSwipe:true,
            	 theme: "toasted-primary", 
             });
+            window.location.reload();
           })
           .catch((error) => {
             var errorMessage = JSON.parse(JSON.stringify(error.response));
