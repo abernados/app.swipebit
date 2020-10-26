@@ -152,7 +152,7 @@ export default {
           .patch(`https://api.swipebitnetwork.com/v1/settings/security/password/edit`, {
             password: this.form.password,
             password_confirmation: this.form.password_confirmation,
-            current_password: this.form.password,
+            current_password: this.form.current_password,
           })
           .then((response) => {
              let toast = Vue.toasted.show(response.data.message,{
