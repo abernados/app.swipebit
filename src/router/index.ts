@@ -14,6 +14,7 @@ import ViewAccount from '../views/Settings/MyAccount/View.vue'
 import EditOTPMode from '../views/Settings/OtpMode/Edit.vue'
 import ViewOTPMode from '../views/Settings/OtpMode/View.vue'
 import ProfileLayout from '../views/Settings/Layout.vue'
+import Cards from '../views/Cards/Index.vue'
 import Error404 from '../views/404.vue'
 
 import guest from './middleware/guest'
@@ -153,24 +154,33 @@ const routes: Array<RouteConfig> = [
         },
     ]
   },
-  //     // {
-  //     //   path: 'password',
-  //     //   component: Password
-  //     // },
-  //     // {
-  //     //   path: 'otp-mode',
-  //     //   component: ViewOtpMode
-  //     // },
-  //     // {
-  //     //   path: 'otp-mode/edit',
-  //     //   component: EditOtpMode
-  //     // },
-  //     // {
-  //     //   path: 'avatar',
-  //     //   component: Avatar
-  //     // }
-  //   ]
-  // },
+  {
+    path: '/cards',
+    name: 'Cards',
+    component: Cards,
+    meta: {
+      middleware: [auth],
+      layout: "default",
+    },
+    children: [
+      {
+        path: '/view/:id',
+        name: 'Cards.View',
+        component: ViewAccount,
+        meta: {
+          middleware: [auth],
+        },
+      },
+      {
+        path: 'create',
+        name: 'Cards.Create',
+        component: EditAccount,
+        meta: {
+          middleware: [auth],
+        },
+      },
+    ]
+  },
   {
     path: '/404',
     name: 'Error404',
