@@ -16,7 +16,24 @@
           Withdraw</button>
       </div>
       <div class="row-span-3 col-span-4">
-        <div class="o-box bg-center bg-no-repeat bg-cover" :style="{'background-image': 'url(' + require('@/assets/images/banner_with_2_cards.png') + ')'}">
+        <div class="grid grid-cols-3 gap-3 items-center justify-between text-white font-bold" >
+          <a v-for="card in cards" :key="card.circle_card_id" :href="'/cards/view/' + card.circle_card_id"
+              class="bg center bg-cover rounded-lg flex-1 h-40 hover:text-yellow-light hover:opacity-100 opacity-75 hover:shadow-2xl " :style="{'background-image': 'url(' + require('@/assets/images/'+ cardBg[Math.floor(Math.random() * cardBg.length)] +'') + ')'}">
+            <p class="my-8 text-md font-mono">XXXX XXXX XXXX {{card.last_four}}</p>
+            <div class="flex justify-around -mt-8">
+              <p class="my-12 text-sm font-logo text-white">bit</p>
+              <p class="my-12">{{card.details.network}}</p>
+            </div>
+          </a>
+          <!-- Add new card -->
+          <a href="/cards/create"
+            class="rounded-lg text-blue-dark bg-white border-dashed border-4 border-gray-400 py-6 h-40 hover:border-transparent hover:bg-blue-dark hover:text-white hover:opacity-100 opacity-75 hover:shadow-2xl ">
+            <font-awesome-icon :icon="['fas', 'plus-circle']" size="2x"/>
+            <p class="pt-4">Add a new card</p>
+          </a>
+        </div>
+        <!-- Old banner -->
+        <!-- <div class="o-box bg-center bg-no-repeat bg-cover" :style="{'background-image': 'url(' + require('@/assets/images/banner_with_2_cards.png') + ')'}">
           <div class="o-box__body rounded-sm " >
             <div class="w-1/3 text-left">
               <p class="font-bold pb-4">Virtual Card</p>
@@ -24,7 +41,7 @@
               <a href="#" class="text-sm uppercase font-bold text-blue-500">get now </a>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="row-span-4 col-span-2">
         <div class="o-box">
@@ -40,6 +57,19 @@
               {{balance || 0.00}}
             </div>
             <div class="animate-pulse bg-gray-200 mt-2 px-2 py-6 text-4xl text-blue-500 text-left" v-else></div>
+          </div>
+          <div class="row-span-4 col-span-2 ">
+            <div class="o-box">
+              <div class="o-box__body rounded-sm bg-white px-4 py-4 my-4">
+                <div class="flex items-center justify-between">
+                <font-awesome-icon :icon="['fas', 'shield-alt']" class="c-avatar v--small object-cover self-start ml-4 mt-10" />
+                    <div>
+                      <p class="font-bold ml-6 text-left text-sm uppercase">Verify Your Account</p>
+                      <p class="pb-4 text-left mx-6 mt-4">Click <button @click="verifyAccount" class="font-bold text-yellow-dark focus:outline-none"> here </button> to unlock Premium Features and to have multiple cards on your account.</p>
+                    </div>
+                </div>
+              </div>
+            </div>
           </div>
           <!-- <div class="o-box__body rounded-sm bg-white px-4 py-4">
             <div class="flex items-center justify-between">
@@ -57,15 +87,36 @@
                 </a>
             </div>
           </div> -->
-          <div class="o-box__body rounded-sm bg-white px-4 py-4 my-4">
-            <div class="flex items-center justify-between">
-            <font-awesome-icon :icon="['fas', 'shield-alt']" class="c-avatar v--small object-cover self-start ml-4 mt-10" />
-                <div>
-                  <p class="font-bold ml-6 text-left text-sm uppercase">Verify Your Account</p>
-                  <p class="pb-4 text-left mx-6 mt-4">Click <button @click="verifyAccount" class="font-bold text-yellow-dark focus:outline-none"> here </button> to unlock Premium Features and to have multiple cards on your account.</p>
+          
+          <!-- Cards -->
+          <!-- <div class="o-box__body rounded-sm bg-white px-4 py-4 my-4">
+            <div class="grid grid-cols-1 gap-3 items-center justify-between text-white font-bold" >
+              <div class="bg center bg-cover rounded-lg flex-1" :style="{'background-image': 'url(' + require('@/assets/images/ATM_Card_1.png') + ')'}" style="height: 200px;">
+                <p class="my-8 text-2xl font-mono">XXXX XXXX XXXX 1543</p>
+                <div class="flex justify-around -mt-8">
+                  <p class="my-12 text-2xl font-logo text-white">bit</p>
+                  <p class="my-12 text-2xl">VISA</p>
                 </div>
+              </div>
+              <div class="bg center bg-cover rounded-lg flex-1" :style="{'background-image': 'url(' + require('@/assets/images/ATM_Card_2.png') + ')'}" style="height: 200px;">
+                <p class="my-8 text-2xl font-mono">XXXX XXXX XXXX 1543</p>
+                <div class="flex justify-around -mt-8">
+                  <p class="my-12 text-2xl font-logo text-white">bit</p>
+                  <p class="my-12 text-2xl">VISA</p>
+                </div>
+              </div>
+              <div class="bg center bg-cover rounded-lg flex-1" :style="{'background-image': 'url(' + require('@/assets/images/ATM_Card_3.png') + ')'}" style="height: 200px;">
+                <p class="my-12 text-2xl font-mono">XXXX XXXX XXXX 1543</p>
+                <div class="flex justify-around -mt-8">
+                  <p class="my-8 text-2xl font-logo text-white">bit</p>
+                  <p class="my-12 text-2xl">VISA</p>
+                </div>
+              </div>
+              <div class="bg center bg-cover rounded-lg flex-1 text-black">
+                <p class="border-dashed border-4 border-gray-400 py-5 ">Add New Card</p>
+              </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="col-span-4">
@@ -187,6 +238,19 @@
           </div>
         </div>
       </div>
+       <div class="row-span-4 col-span-2 ">
+        <div class="o-box">
+          <div class="o-box__body rounded-sm bg-white px-4 py-4 my-4">
+            <div class="flex items-center justify-between">
+            <font-awesome-icon :icon="['fas', 'shield-alt']" class="c-avatar v--small object-cover self-start ml-4 mt-10" />
+                <div>
+                  <p class="font-bold ml-6 text-left text-sm uppercase">Verify Your Account</p>
+                  <p class="pb-4 text-left mx-6 mt-4">Click <button @click="verifyAccount" class="font-bold text-yellow-dark focus:outline-none"> here </button> to unlock Premium Features and to have multiple cards on your account.</p>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div>
     </div>
@@ -202,13 +266,29 @@ export default Vue.extend({
   data(){
     return{
       balance: 0.00,
-      loading: false
+      cardLoading: false,
+      loading: false,
+      cards: null,
+      cardBg:  ['ATM_Card_1.png','ATM_Card_2.png','ATM_Card_3.png'],
     }
   },
   created(){
    this.reloadBalance();
+   this.getAllCards();
+
   },
   methods:{
+    getAllCards(){
+      this.cardLoading =true;
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' +localStorage.getItem('access_token')
+      axios
+        .get(`https://api.swipebitnetwork.com/v1/cards/all`)
+        .then((response) => {
+          console.log(response.data);
+          this.cards = response.data.data;
+          this.loading =false;
+        });
+    },
     reloadBalance(){
       this.loading =true;
       axios.defaults.headers.common['Authorization'] = 'Bearer ' +localStorage.getItem('access_token')

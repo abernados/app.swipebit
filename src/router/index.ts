@@ -15,6 +15,8 @@ import EditOTPMode from '../views/Settings/OtpMode/Edit.vue'
 import ViewOTPMode from '../views/Settings/OtpMode/View.vue'
 import ProfileLayout from '../views/Settings/Layout.vue'
 import Cards from '../views/Cards/Index.vue'
+import CreateCard from '../views/Cards/Create.vue'
+import ViewCard from '../views/Cards/View.vue'
 import Error404 from '../views/404.vue'
 
 import guest from './middleware/guest'
@@ -109,6 +111,7 @@ const routes: Array<RouteConfig> = [
             name: 'MyProfile.View',
             component: ViewAccount,
             meta: {
+              layout: "no-navbar",
               middleware: [auth],
             },
           },
@@ -117,13 +120,14 @@ const routes: Array<RouteConfig> = [
             name: 'MyProfile.Edit',
             component: EditAccount,
             meta: {
+              layout: "no-navbar",
               middleware: [auth],
             },
           },       
           {
             path: 'picture',
             name: 'ProfilePicture',
-            component: ViewAccount,
+            component: ProfilePicture,
             meta: {
               middleware: [auth],
             },
@@ -164,18 +168,20 @@ const routes: Array<RouteConfig> = [
     },
     children: [
       {
-        path: '/view/:id',
+        path: 'view/:id',
         name: 'Cards.View',
-        component: ViewAccount,
+        component: ViewCard,
         meta: {
+          // layout: "no-navbar",
           middleware: [auth],
         },
       },
       {
         path: 'create',
         name: 'Cards.Create',
-        component: EditAccount,
+        component: CreateCard,
         meta: {
+          // layout: "no-navbar",
           middleware: [auth],
         },
       },
