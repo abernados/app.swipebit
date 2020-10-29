@@ -1,5 +1,5 @@
 <template>
-  <section class="Login flex h-screen">
+  <section class="Login flex h-screen bg-white">
     <!-- <div
       class="lg:w-2/3 o-page o-box p-60 bg-contain bg-no-repeat bg-center md:block hidden bg-blue-800"
     >

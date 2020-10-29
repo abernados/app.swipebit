@@ -238,19 +238,6 @@
           </div>
         </div>
       </div>
-       <div class="row-span-4 col-span-2 ">
-        <div class="o-box">
-          <div class="o-box__body rounded-sm bg-white px-4 py-4 my-4">
-            <div class="flex items-center justify-between">
-            <font-awesome-icon :icon="['fas', 'shield-alt']" class="c-avatar v--small object-cover self-start ml-4 mt-10" />
-                <div>
-                  <p class="font-bold ml-6 text-left text-sm uppercase">Verify Your Account</p>
-                  <p class="pb-4 text-left mx-6 mt-4">Click <button @click="verifyAccount" class="font-bold text-yellow-dark focus:outline-none"> here </button> to unlock Premium Features and to have multiple cards on your account.</p>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     <div>
     </div>

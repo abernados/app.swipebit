@@ -1,5 +1,5 @@
 <template>
-  <section class="Login flex h-screen">
+  <section class="Login flex h-screen bg-white">
     <div class="flex items-center lg:w-1/2 o-page o-box bg-blue-light">
       <div class="flex-1 text-center px-4 py-2 m-2">
         <img
