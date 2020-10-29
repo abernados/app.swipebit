@@ -11,6 +11,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/vue-fontawesome": "^0.1.5",
+    "@splidejs/vue-splide": "^0.3.5",
     "@types/vuelidate": "^0.7.13",
     "@vue/cli": "^4.5.7",
     "apexcharts": "^3.21.0",
