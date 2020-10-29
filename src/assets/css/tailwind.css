@@ -1,7 +1,5 @@
 @tailwind base;
 @tailwind components;
-
-
 @import "./base/boilerplate.css";
 
 /** Objects. **/
@@ -27,3 +25,4 @@
 @import "./components/c-toast.css";
 @import "./components/c-flag.css";
 @tailwind utilities;
+@import "./custom/credit-card.css";

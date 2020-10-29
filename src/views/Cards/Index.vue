@@ -52,6 +52,7 @@ export default {
             user: JSON.parse(localStorage.getItem('user')),
             balance: 0.00,
             loading: false,
+            cardLoading: false,
             cards: null,
             cardBg:  ['ATM_Card_1.png','ATM_Card_2.png','ATM_Card_3.png'],
         }

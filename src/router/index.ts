@@ -161,18 +161,30 @@ const routes: Array<RouteConfig> = [
   {
     path: '/cards',
     name: 'Cards',
-    component: Cards,
+    component: {
+      render: (c) => c('router-view'),
+    },
+    // component: Cards,
     meta: {
       middleware: [auth],
-      layout: "default",
+      // layout: "default",
     },
     children: [
+      {
+        path: '/',
+        name: 'Cards.Index',
+        component: Cards,
+        meta: {
+          layout: "default",
+          middleware: [auth],
+        },
+      },
       {
         path: 'view/:id',
         name: 'Cards.View',
         component: ViewCard,
         meta: {
-          // layout: "no-navbar",
+          layout: "no-navbar",
           middleware: [auth],
         },
       },
@@ -181,7 +193,7 @@ const routes: Array<RouteConfig> = [
         name: 'Cards.Create',
         component: CreateCard,
         meta: {
-          // layout: "no-navbar",
+          layout: "no-navbar",
           middleware: [auth],
         },
       },
