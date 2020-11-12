@@ -5,10 +5,10 @@
     </div>
     <div class="grid grid-rows-8 grid-cols-6 gap-4">
       <div class="row-span-1 col-span-1">
-        <button type="button" class="bg-green-500 hover:bg-green-700 px-4 py-3 rounded-sm text-white w-full">
+        <a href="/cash-in" type="button" class="bg-green-500 hover:bg-green-700 px-4 py-3 rounded-sm text-white w-full">
           <font-awesome-icon :icon="['fas', 'plus-circle']" class="mr-2"/>
           Deposit
-        </button>
+        </a>
       </div>
       <div class="row-span-1 col-span-1">
         <button type="button" class="bg-blue-500 hover:bg-blue-700 px-4 py-3 rounded-sm text-white w-full">

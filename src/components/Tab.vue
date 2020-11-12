@@ -9,7 +9,7 @@
             <li class="mr-6"
                 :class="{'border-gray-800 border-b-2 text-gray-800 font-bold': checkRoute('CashIn'),'text-gray-500': !checkRoute('CashIn')}"
             >                
-            <a class=" hover:text-blue-800" href="/">Cash In</a>
+            <a class=" hover:text-blue-800" href="/cash-in">Cash In</a>
             </li>
             <li class="mr-6"
                 :class="{'border-gray-800 border-b-2 text-gray-800 font-bold': checkRoute('SendMoney'),'text-gray-500': !checkRoute('SendMoney')}"

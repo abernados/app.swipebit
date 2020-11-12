@@ -17,6 +17,7 @@ import ProfileLayout from '../views/Settings/Layout.vue'
 import Cards from '../views/Cards/Index.vue'
 import CreateCard from '../views/Cards/Create.vue'
 import ViewCard from '../views/Cards/View.vue'
+import Cashin from '../views/CashIn/View.vue'
 import Error404 from '../views/404.vue'
 
 import guest from './middleware/guest'
@@ -164,10 +165,8 @@ const routes: Array<RouteConfig> = [
     component: {
       render: (c) => c('router-view'),
     },
-    // component: Cards,
     meta: {
       middleware: [auth],
-      // layout: "default",
     },
     children: [
       {
@@ -207,7 +206,14 @@ const routes: Array<RouteConfig> = [
       layout: "no-navbar",
     },
   },
-  
+  {
+    path: '/cash-in',
+    name: 'Cashin',
+    component: Cashin,
+    meta: {
+      middleware: [auth],
+    },
+  },
   // {
   //   path: '/about',
   //   name: 'About',

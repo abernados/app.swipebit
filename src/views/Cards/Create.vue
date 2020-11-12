@@ -64,17 +64,17 @@
                       </template>
                   </label>
                   <div class="card-item__content text-left">
-                      <!-- <label for="cardName" class="card-item__info" ref="cardName">
+                      <label for="cardName" class="card-item__info" ref="cardName">
                       <div class="card-item__holder">Card Holder</div>
                       <transition name="slide-fade-up">
-                          <div class="card-item__name" v-if="cardName.length" key="1">
-                          <transition-group name="slide-fade-right">
-                              <span class="card-item__nameItem" v-for="(n, $index) in cardName.replace(/\s\s+/g, ' ')" v-if="$index === $index" v-bind:key="$index + 1">{{n}}</span>
-                          </transition-group>
+                          <div class="card-item__name" key="1">
+                          <!-- <transition-group name="slide-fade-right"> -->
+                              <span class="card-item__nameItem">{{user.name}}</span>
+                          <!-- </transition-group> -->
                           </div>
-                          <div class="card-item__name" v-else key="2">Full Name</div>
+                          <!-- <div class="card-item__name" v-else key="2">Full Name</div> -->
                       </transition>
-                      </label> -->
+                      </label>
                       <div class="card-item__date" ref="cardDate">
                       <label for="cardMonth" class="card-item__dateTitle">Expires</label>
                       <label for="cardMonth" class="card-item__dateItem">
@@ -144,10 +144,10 @@
                       </li>
                   </ul>
               </div>
-              <!-- <div class="card-input">
-              <label for="cardName" class="card-input__label">Card Holders</label>
-              <input type="text" id="cardName" class="c-field__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off">
-              </div> -->
+              <!-- <div class="card-input"> -->
+              <!-- <label for="cardName" class="card-input__label">Card Holders</label> -->
+              <input type="hidden" id="cardName" class="c-field__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off">
+              <!-- </div> -->
               <div class="card-form__row">
                 <div class="card-form__col">
                     <div class="card-form__group">
@@ -246,7 +246,7 @@
                 class="c-button w-full"
                 :class="{ 'v--disabled': $v.$invalid }"
               >
-                Sign in
+                Create card
               </button>
           </div>
       </form>
@@ -260,24 +260,10 @@ import {
 } from "vuelidate/lib/validators";
 import axios from "axios";
 export default {
-  created(){
-    (async () => {
-        const response = await fetch(
-          'https://parseapi.back4app.com/classes/Uszipcode_US_Zip_Code?limit=0&order=State&keys=State,US_Zip_Code,country',
-          {
-            headers: {
-              'X-Parse-Application-Id': 'bx1jAaGOfAegUwtrIWcGSy030O7fpR5Hs9gzKeTq', // This is your app's application id
-              'X-Parse-REST-API-Key': '02TCQhAtWPRnGT8bdXOXAdxAD7vZ9dhRLn1XQkzu', // This is your app's REST API key
-            }
-          }
-        );
-        const data = await response.json(); // Here you have the data that you need
-        console.log(JSON.stringify(data, null, 2));
-      })();
-  },
     data() {
     return {
       currentCardBackground: Math.floor(Math.random()* 25 + 1), // just for fun :D
+      user: JSON.parse(localStorage.getItem('user')),
       cardName: "",
       cardNumber: "",
       cardMonth: "",
@@ -373,60 +359,60 @@ export default {
         window.location.replace("/cards");
       },
       async submit(){
-      try {
-        /* eslint-disable  */
-      this.$v.$touch();
-        axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('access_token');
+        try {
+          /* eslint-disable  */
+        this.$v.$touch();
+          axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('access_token');
 
-        axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-        await axios
-          .post(`https://api.swipebitnetwork.com/v1/cards/add`, {
-            number: this.cardNumber.replaceAll(' ',''),
-            cvv: this.cardCvv,
-            exp_month: this.cardMonth,
-            exp_year: this.cardYear,
-            district: this.district,
-            address_line_1: this.addressLine1,
-            address_line_2 : this.addressLine2,
-            postal_code: this.postalCode,
-            city: this.city,
-          })
-          .then((response) => {
+          axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+          await axios
+            .post(`https://api.swipebitnetwork.com/v1/cards/add`, {
+              number: this.cardNumber.replaceAll(' ',''),
+              cvv: this.cardCvv,
+              exp_month: this.cardMonth,
+              exp_year: this.cardYear,
+              district: this.district,
+              address_line_1: this.addressLine1,
+              address_line_2 : this.addressLine2,
+              postal_code: this.postalCode,
+              city: this.city,
+            })
+            .then((response) => {
 
-             let toast = Vue.toasted.show('Successfully created a new card.',{
-              duration: 2000,
-              position: "top-right",
-              type: "success",
-              singleton: true,
-              onComplete: this.goBack,
-              closeOnSwipe:true,
-           	 theme: "toasted-primary", 
-            });
-          })
-          .catch((error) => {
-            var errorMessage = JSON.parse(JSON.stringify(error.response));
-              let toast = Vue.toasted.show(errorMessage.data.message,{
-                duration: 3000,
+              let toast = Vue.toasted.show('Successfully created a new card.',{
+                duration: 2000,
                 position: "top-right",
-                type: "error",
+                type: "success",
                 singleton: true,
+                onComplete: this.goBack,
                 closeOnSwipe:true,
-                theme: "toasted-primary", 
+              theme: "toasted-primary", 
               });
-          });
-      } catch (error) {
-        console.log("Your error is 2: " + error);
-         var errorMessage = JSON.parse(JSON.stringify(error.response));
-          let toast = Vue.toasted.show(errorMessage.data.message,{
-            duration: 3000,
-            position: "top-right",
-            type: "error",
-            singleton: true,
-            closeOnSwipe:true,
-            theme: "toasted-primary", 
-          });
+            })
+            .catch((error) => {
+              var errorMessage = JSON.parse(JSON.stringify(error.response));
+                let toast = Vue.toasted.show(errorMessage.data.message,{
+                  duration: 3000,
+                  position: "top-right",
+                  type: "error",
+                  singleton: true,
+                  closeOnSwipe:true,
+                  theme: "toasted-primary", 
+                });
+            });
+        } catch (error) {
+          console.log("Your error is 2: " + error);
+          var errorMessage = JSON.parse(JSON.stringify(error.response));
+            let toast = Vue.toasted.show(errorMessage.data.message,{
+              duration: 3000,
+              position: "top-right",
+              type: "error",
+              singleton: true,
+              closeOnSwipe:true,
+              theme: "toasted-primary", 
+            });
+        }
       }
-    }
   }
 }
 </script>
